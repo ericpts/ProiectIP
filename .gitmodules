@@ -1,0 +1,3 @@
+[submodule "extern/colorization"]
+	path = extern/colorization
+	url = https://github.com/richzhang/colorization
