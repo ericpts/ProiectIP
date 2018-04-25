@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-26 09:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:61
+msgid "Who?"
+msgstr "Qui ?"
+
+#: models.py:86
+msgid "Can read"
+msgstr "Peut lire"
+
+#: models.py:87
+msgid "Can write"
+msgstr "Peut écrire"
+
+#: models.py:88
+msgid "Can manage"
+msgstr "Peut gérer"
+
+#: models.py:110
+msgid "Description"
+msgstr "Description"
+
+#: notifications.py:32
+#, python-format
+msgid "New photos from %s"
+msgstr "Nouvelles photos de %s"
+
+#: views.py:98 templates/coconuts/photo_list.html:24
+msgid "Add a file"
+msgstr "Ajouter un fichier"
+
+#: views.py:125 templates/coconuts/photo_list.html:25
+msgid "Create a folder"
+msgstr "Créer un dossier"
+
+#: templates/coconuts/add_file.html:22 templates/coconuts/add_folder.html:15
+#: templates/coconuts/manage.html:32
+msgid "Save"
+msgstr "Enregistrer"
+
+#: templates/coconuts/delete.html:5 templates/coconuts/delete.html.py:13
+#, python-format
+msgid "Really delete \"%(target)s\"?"
+msgstr "Réellement supprimer \"%(target)s\" ?"
+
+#: templates/coconuts/delete.html:20
+#, python-format
+msgid ""
+"Are you sure you want to delete the folder \"%(target)s\" and all its "
+"contents?"
+msgstr ""
+"Etes vous sûr de vouloir supprimer le dossier \"%(target)s\" ainsi que son "
+"contenu ?"
+
+#: templates/coconuts/delete.html:22
+#, python-format
+msgid "Are you sure you want to delete the file \"%(target)s\"?"
+msgstr "Etes-vous sûr de vouloir supprimer le fichier \"%(target)s\" ?"
+
+#: templates/coconuts/delete.html:29
+msgid "Yes, I'm sure"
+msgstr "Oui, je suis sûr"
+
+#: templates/coconuts/delete.html:30
+msgid "No, I'm not sure"
+msgstr "Non, je ne suis pas sûr"
+
+#: templates/coconuts/folder_email.html:2
+#, python-format
+msgid "%(full_name)s has just shared some new photos with you."
+msgstr "%(full_name)s vient de partager de nouvelles photos avec vous."
+
+#: templates/coconuts/folder_email.html:4
+msgid "You can see the photos at the following address:"
+msgstr "Vous pouvez visualiser les photos à l'adresse suivante:"
+
+#: templates/coconuts/folder_email.html:8
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "L'équipe %(site_name)s"
+
+#: templates/coconuts/manage.html:4 templates/coconuts/manage.html.py:13
+#, python-format
+msgid "Manage %(name)s"
+msgstr "Gérer %(name)s"
+
+#: templates/coconuts/manage.html:18
+msgid "Permissions"
+msgstr "Permissions"
+
+#: templates/coconuts/photo_detail.html:24
+msgid "Information"
+msgstr "Informations"
+
+#: templates/coconuts/photo_detail.html:26
+#: templates/coconuts/photo_detail.html:27
+msgid "The size of the original picture"
+msgstr "La taille de l'image originale"
+
+#: templates/coconuts/photo_detail.html:29
+msgid "The camera used to take this picture"
+msgstr "L'appareil photo utilisé pour prendre cette image"
+
+#: templates/coconuts/photo_detail.html:32
+msgid "The aperture and exposure time for this picture"
+msgstr "L'ouverture et le temps d'exposition de cette image"
+
+#: templates/coconuts/photo_detail.html:36
+msgid "Download"
+msgstr "Télécharger"
+
+#: templates/coconuts/photo_detail.html:38
+#: templates/coconuts/photo_list.html:49 templates/coconuts/photo_list.html:69
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/coconuts/photo_list.html:19
+msgid "Operations"
+msgstr "Opérations"
+
+#: templates/coconuts/photo_list.html:28
+msgid "Manage this share's permissions"
+msgstr "Gérer les permissions de ce partage"
+
+#: templates/coconuts/photo_list.html:31
+msgid "Manage user accounts"
+msgstr "Gérer les comptes"
+
+#: templates/coconuts/photo_list.html:42
+msgid "There are no files in this folder."
+msgstr "Ce dossier ne contient aucun fichier."
+
+#: templates/coconuts/photo_list.html:49
+msgid "Delete this folder"
+msgstr "Supprimer ce dossier"
+
+#: templates/coconuts/photo_list.html:69
+msgid "Delete this file"
+msgstr "Supprimer ce fichier"
+
+#: templatetags/coconuts_tags.py:37
+msgid "Shares"
+msgstr "Partages"
