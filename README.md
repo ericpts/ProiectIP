@@ -1,8 +1,18 @@
 # ProiectIP
 
-Repo-ul pentru proiectul de la Ingineria Programarii.
+Repository for the Software Engineering university project.
 
-Membrii:
+# Usage
+
+First of all, run the init script.
+```bash
+./init.sh
+```
+
+### Running the server
+
+
+# Members
 
 - Eric P. Stavarache
 - Lucian Bicsi
