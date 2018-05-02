@@ -144,10 +144,18 @@ controller('FolderCtrl', ['$http', '$location', '$rootScope', '$routeParams', '$
         });
     };
 
+    $scope.toggleAddPrompt = function() {
+        $scope.addPrompt = !$scope.addPrompt;
+    };
+    $scope.toggleCreatePrompt = function() {
+        $scope.createPrompt = !$scope.createPrompt;
+    };
+
     $scope.promptDelete = function(obj) {
         $scope.deleteTarget = obj;
         $scope.deleteFolder = false;
     };
+
     $scope.doDelete = function() {
         $http.post(settings.coconuts_root + 'delete' + $scope.deleteTarget.path).success(function(currentFolder) {
             $scope.deleteTarget = undefined;

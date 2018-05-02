@@ -20,7 +20,13 @@ function init_cifar() {
     popd
 }
 
+function init_coconuts() {
+    mkdir -p colorzr/files/coconuts/data
+    mkdir -p colorzr/files/coconuts/cache
+}
+
 
 # init_colorization
 init_python_requirements
 init_cifar
+init_coconuts

@@ -141,6 +141,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Coconuts settings
-tmp_dir = '/tmp/coconuts.test.%s' % getpass.getuser()
+
+tmp_dir = os.path.join(BASE_DIR, 'files/coconuts')
 COCONUTS_CACHE_ROOT = os.path.join(tmp_dir, 'cache')
 COCONUTS_DATA_ROOT = os.path.join(tmp_dir, 'data')
