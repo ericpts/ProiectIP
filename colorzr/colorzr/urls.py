@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.conf.urls import url, include
 from rest_framework import routers
@@ -24,13 +24,22 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 
+
+# TODO(ericpts, lucianbicsi): Look at https://github.com/apragacz/django-rest-registration/tree/master/examples/sharedlinks
+# and figure out how to add registration.
+
+api_urlpatterns = [
+    path('images/', include('images.urls')),
+    path('accounts/', include('rest_registration.api.urls')),
+]
+
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('', include(router.urls)),
+    path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^api/v1/', include('images.urls')),
-    url(r'^coconut/', include('coconuts.urls')),
+    path('api/', include(api_urlpatterns)),
+    path('coconut/', include('coconuts.urls')),
 ]
