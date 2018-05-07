@@ -11,3 +11,4 @@ def get_image_path(instance, filename: str) -> str:
 class Image(models.Model):
     user = models.OneToOneField(User)
     image = ImageField(upload_to=get_image_path, blank=True, null=True)
+

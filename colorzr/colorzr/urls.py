@@ -31,8 +31,7 @@ api_urlpatterns = [
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    # url(r"^", include('coconuts.urls'), name="home"),
-    # TODO: ericptst try to uncomment this line and debug
+    url(r"^$", views.UserViewSet.as_view({'get': 'list'}), name="home"),
     url('admin/', admin.site.urls),
     url('api/', include(api_urlpatterns)),
     url('accounts/', include('accounts.urls')),

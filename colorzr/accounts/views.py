@@ -1,5 +1,5 @@
 from django.contrib.auth import login, logout
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from .forms import RegisterForm, LoginForm
