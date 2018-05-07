@@ -33,18 +33,15 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 
-api_urlpatterns = [
-    path('images/', include('images.urls'))
-]
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r"^$", HomeView.as_view(), name="home"),
     url('admin/', admin.site.urls),
-    url('api/', include(api_urlpatterns)),
     url('accounts/', include('accounts.urls')),
     url('routes/', include(router.urls)),
+    url('images/', include('images.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

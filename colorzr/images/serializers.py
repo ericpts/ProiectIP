@@ -1,9 +1,8 @@
 from rest_framework import serializers
-from images.models import Image
+from images.models import SavedImage
 
-
-class ImageSerializer(serializers.ModelSerializer):
+class SavedImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Image
-        fields = ('id', 'title', 'base64_bw', 'base64_color')
+        model = SavedImage
+        fields = ('id', 'created', 'title', 'bw_image', 'color_image')
 

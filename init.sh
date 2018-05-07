@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function init_submodules() {
+    git submodule update --init --recursive
+}
+
 function init_colorization() {
     pushd extern/colorization
     bash ./models/fetch_release_models.sh
@@ -12,21 +16,13 @@ function init_colorization() {
 
 function init_python_requirements() {
     sudo pip3 install -r requirements.txt
-}
 
-function init_cifar() {
-    pushd extern/cifar
-    python3 -c 'import cifar10; cifar10.maybe_download_and_extract()'
-    popd
-}
-
-function init_coconuts() {
-    mkdir -p colorzr/files/coconuts/data
-    mkdir -p colorzr/files/coconuts/cache
+    # Debian only, for now.
+    sudo apt install caffe-cpu
 }
 
 
-# init_colorization
+
+init_submodules
+init_colorization
 init_python_requirements
-init_cifar
-init_coconuts

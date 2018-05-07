@@ -5,12 +5,9 @@ import numpy as np
 from tempfile import NamedTemporaryFile
 import subprocess
 from pathlib import Path
-from imageio import imwrite, imread
+from PIL import Image
 
 from contextlib import contextmanager
-
-Image = np.ndarray
-
 @contextmanager
 def ftemp() -> Path:
     os.makedirs('/tmp/colorzr/', exist_ok=True)
@@ -24,13 +21,17 @@ def ftemp() -> Path:
 def colorize_py_file() -> Path:
     return (Path(__file__).resolve().parent.parent.parent / 'extern' / 'colorization' / 'colorization' / 'colorize.py').resolve()
 
-def colorize(src_img: Image) -> Image:
+def to_bw(src_img: Image) -> Image:
+    """ Turn the given image to black and white. """
+    return src_img.convert(mode='L')
+
+def to_color(src_img: Image) -> Image:
     """ Colorize the given black and white image. """
     ret = None # type: Image
 
     with ftemp() as img_in:
         with ftemp() as img_out:
-            imwrite(str(img_in), src_img)
+            src_img.save(str(img_in))
 
             p = subprocess.run(['python3', str(colorize_py_file()),
                 '-img_in', str(img_in),
@@ -44,10 +45,12 @@ def colorize(src_img: Image) -> Image:
                 print(p.stderr)
                 p.check_returncode()
 
-            ret = imread(str(img_out))
+            ret = Image.open(str(img_out))
 
     return ret
 
+
+# Test the script as a standalone CLI file.
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Image colorizer.')
     parser.add_argument('-i', '--input_image', type=str, help='Input image.', required=True)
@@ -55,5 +58,6 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    src_img = imread(args.input_image)
-    imwrite(args.output_image, colorize(src_img))
+    src_img = Image.open(args.input_image)
+    # to_color(src_img).save(args.output_image)
+    to_bw(src_img).save(args.output_image)

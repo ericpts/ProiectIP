@@ -1,13 +1,14 @@
 from django.db import models
+from PIL import Image
 
 
-# Create your models here.
-
-class Image(models.Model):
+class SavedImage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=100, blank=True, default='')
-    base64_bw = models.TextField()
-    base64_color = models.TextField(blank=True, default='')
+    title = models.CharField(max_length=100)
+
+    bw_image = models.ImageField(upload_to='bw/')
+    color_image = models.ImageField(upload_to='color/')
+    original_image = models.ImageField(upload_to='original/')
 
     class Meta:
         ordering = ('created',)
