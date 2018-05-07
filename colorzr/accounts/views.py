@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -6,7 +7,7 @@ from .forms import RegisterForm, LoginForm
 
 
 class LoginView(generic.FormView):
-    form_class = LoginForm
+    form_class = AuthenticationForm
     success_url = reverse_lazy("home")
     template_name = "accounts/login_user.html"
 

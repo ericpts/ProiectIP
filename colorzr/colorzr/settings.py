@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'images.apps.ImagesConfig',
     'coconuts',
     'accounts',
+    'bootstrap3',
 ]
 
 REST_FRAMEWORK = {

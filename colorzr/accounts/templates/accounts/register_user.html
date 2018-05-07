@@ -1,63 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
+{% load bootstrap3 %}
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style type="text/css">
-    .register-form {
-      width: 340px;
-      margin: 50px auto;
-    }
+{% block title_tag %}Sign up | {{ block.super }}{% endblock %}
 
-    .register-form form {
-      margin-bottom: 15px;
-      background: #f7f7f7;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-      padding: 30px;
-    }
-
-    .register-form h2 {
-      margin: 0 0 15px;
-    }
-
-    .form-control,
-    .btn {
-      min-height: 38px;
-      border-radius: 2px;
-    }
-
-    .btn {
-      font-size: 15px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="register-form">
-    <form method="post">
-      {% csrf_token %}
-      {% for field in form %}
-        <p>
-          {{ field.label_tag }}<br>
-          {{ field }}
-          {% if field.help_text %}
-            <small style="color: grey">{{ field.help_text }}</small>
-          {% endif %}
-          {% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
-          {% endfor %}
-        </p>
-      {% endfor %}
-      <button type="submit" class="btn btn-primary btn-block">Register account</button>
-    </form>
-    <p class="text-center"><a href="/accounts/login">Log in</a></p>
-  </div>
-</body>
-
-</html>
+{% block body_content %}
+<div class="container">
+    <div>
+        <h1>Sign up</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" value="Sign up" class="btn btn-primary btn-block"/>
+        </form>
+    </div>
+</div>
+{% endblock %}

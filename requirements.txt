@@ -5,3 +5,4 @@ django-rest-registration==0.3.9
 imageio
 numpy
 djoser
+django-bootstrap3
