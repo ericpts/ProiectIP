@@ -1,8 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
-class SavedImage(models.Model):
+class ImageConversion(models.Model):
     created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
 
     bw_image = models.ImageField(upload_to='bw/')

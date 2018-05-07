@@ -1,32 +1,30 @@
+import uuid
 from io import BytesIO
 
-from django.shortcuts import render, redirect
-from django.views import generic, View
-from django.urls import reverse_lazy
+import PIL
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views import generic
+from rest_framework import generics
 
-from images.models import SavedImage
-from images.serializers import SavedImageSerializer
-from rest_framework import mixins, generics
-
+from .serializers import ImageConversionSerializer
+from .models import ImageConversion
 from . import forms
 from .imgproc_mock import to_bw, to_color
 
-import uuid
-import PIL
 
-class ImageList(generics.ListCreateAPIView):
-    queryset = SavedImage.objects.all()
-    serializer_class = SavedImageSerializer
-
-class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SavedImage.objects.all()
-    serializer_class = SavedImageSerializer
+class ImageList(LoginRequiredMixin, generics.ListCreateAPIView):
+    queryset = ImageConversion.objects.all()
+    serializer_class = ImageConversionSerializer
 
 
-class ImageAddView(generic.FormView):
+class ImageDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
+    queryset = ImageConversion.objects.all()
+    serializer_class = ImageConversionSerializer
+
+
+class ImageAddView(LoginRequiredMixin, generic.FormView):
     form_class = forms.ImageAddForm
     success_url = reverse_lazy('home')
     template_name = 'images/upload-image.html'
@@ -46,8 +44,10 @@ class ImageAddView(generic.FormView):
             img.save(bio, format='JPEG')
             return ContentFile(bio.getvalue())
 
-        model_image = SavedImage()
+        model_image = ImageConversion()
+
         model_image.title = title
+        model_image.author = self.request.user
         model_image.original_image.save(name, form.cleaned_data['original_image'])
         model_image.bw_image.save(name, pil_to_model(bw))
         model_image.color_image.save(name, pil_to_model(color))

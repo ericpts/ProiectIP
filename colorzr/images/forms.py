@@ -1,8 +1,8 @@
 from django import forms
 
-from .models import SavedImage
+from .models import ImageConversion
 
 class ImageAddForm(forms.ModelForm):
     class Meta:
-        model = SavedImage
+        model = ImageConversion
         fields = ('title', 'original_image')
