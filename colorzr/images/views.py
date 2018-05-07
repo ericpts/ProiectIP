@@ -31,10 +31,6 @@ class ImageAddView(generic.FormView):
     success_url = reverse_lazy('home')
     template_name = 'images/upload-image.html'
 
-    def get(self, request, *args, **kwargs):
-        image_form = forms.ImageAddForm({}) # no need for validation so formView is unbound
-        return render(request, self.template_name, { 'image_form': image_form })
-
     def form_valid(self, form):
         original_image = PIL.Image.open(form.cleaned_data['original_image'])
         title = form.cleaned_data['title']
@@ -58,15 +54,4 @@ class ImageAddView(generic.FormView):
 
         model_image.save()
 
-        # return super().form_valid(form)
-
-    def post(self, request, *args, **kwargs):
-        image_form = forms.ImageAddForm(request.POST, request.FILES) # need validation so formView is bound to ImageAddView model
-        
-        if image_form.is_valid():
-            self.form_valid(image_form)
-            messages.success(request, 'You successfully uploaded your image!')
-            return redirect('home')
-        else:
-            messages.error(request, 'Please correct the error below.')
-            return redirect('home')
+        return super().form_valid(form)
