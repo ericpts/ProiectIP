@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +44,6 @@ INSTALLED_APPS = [
     'images.apps.ImagesConfig',
     'coconuts',
     'accounts',
-    'djoser'
 ]
 
 REST_FRAMEWORK = {
@@ -61,6 +61,7 @@ REST_REGISTRATION = {
 
     'VERIFICATION_FROM_EMAIL': 'no-reply@example.com',
 }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
