@@ -6,8 +6,9 @@
 {% block body_content %}
 <div class="container">
     <h1>My profile</h1>
+    <img src="{{ user.profile.avatar_url_or_default }}" alt="avatar"/>
     <h3>@{{ request.user.username }}</h3>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form user_form %}
         {% bootstrap_form profile_form %}

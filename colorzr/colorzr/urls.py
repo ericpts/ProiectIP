@@ -14,18 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.template.context_processors import static
 from django.urls import path, include
 
 from django.conf.urls import url, include
 from rest_framework import routers
 
-from core import views
+from . import views, settings
+
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 from .views import HomeView
+from core.views import UserViewSet, GroupViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
 
 api_urlpatterns = [
     path('images/', include('images.urls'))
@@ -40,3 +46,5 @@ urlpatterns = [
     url('accounts/', include('accounts.urls')),
     url('routes/', include(router.urls)),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
