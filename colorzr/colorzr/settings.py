@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'images.apps.ImagesConfig',
-    'coconuts',
     'accounts',
 ]
 
@@ -142,9 +141,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# Coconuts settings
-
-tmp_dir = os.path.join(BASE_DIR, 'files/coconuts')
-COCONUTS_CACHE_ROOT = os.path.join(tmp_dir, 'cache')
-COCONUTS_DATA_ROOT = os.path.join(tmp_dir, 'data')
