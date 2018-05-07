@@ -24,10 +24,6 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 
-
-# TODO(ericpts, lucianbicsi): Look at https://github.com/apragacz/django-rest-registration/tree/master/examples/sharedlinks
-# and figure out how to add registration.
-
 api_urlpatterns = [
     path('images/', include('images.urls'))
 ]
@@ -35,12 +31,10 @@ api_urlpatterns = [
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('home/', include('coconuts.urls')),
-
-    path('admin/', admin.site.urls),
-    path('api/', include(api_urlpatterns)),
-    path('accounts/', include('accounts.urls')),
-    path('routes/', include(router.urls)),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken'))
+    # url(r"^", include('coconuts.urls'), name="home"),
+    # TODO: ericptst try to uncomment this line and debug
+    url('admin/', admin.site.urls),
+    url('api/', include(api_urlpatterns)),
+    url('accounts/', include('accounts.urls')),
+    url('routes/', include(router.urls)),
 ]
