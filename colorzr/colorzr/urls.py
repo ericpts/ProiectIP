@@ -18,7 +18,10 @@ from django.urls import path, include
 
 from django.conf.urls import url, include
 from rest_framework import routers
+
 from core import views
+from .views import HomeView
+
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -31,7 +34,7 @@ api_urlpatterns = [
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r"^$", views.UserViewSet.as_view({'get': 'list'}), name="home"),
+    url(r"^$", HomeView.as_view(), name="home"),
     url('admin/', admin.site.urls),
     url('api/', include(api_urlpatterns)),
     url('accounts/', include('accounts.urls')),

@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 			  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="{% static 'css/ct-paper.css' %}">
-		<link rel="stylesheet" href="{% static 'css/msg.css' %}">
+		<link rel="stylesheet" href="{% static 'css/colorzr.css' %}">
 	</head>
 	<body>
 
@@ -33,7 +33,7 @@
 					<a class="navbar-brand" href="/">
 						<div class="logo-container">
 							<div class="logo"><img src="{% static 'img/icons/logo.png' %}"></div>
-							<p class="brand">MSG</p>
+							<p class="brand">colorzr</p>
 						</div>
 					</a>
 				</div>
@@ -43,8 +43,8 @@
 					<ul class="nav navbar-nav navbar-right">
 						{% if user.is_authenticated %}
 						<li><a href="#" class="btn btn-default btn-fill" data-toggle="modal" data-target="#postModal">Post</a></li>
-						<li><a href="{% url 'communities:list' %}" class="btn btn-warning btn-fill">Communities</a></li>
-						<li><a href="#" class="btn btn-simple">Log out</a></li>
+                        <li><a href="{% url 'change_profile' %}" class="btn btn-simple">@{{ request.user.username }}</a></li>
+						<li><a href="{% url 'logout' %}" class="btn btn-simple">Log out</a></li>
 						{% else %}
 						<li><a href="{% url 'home' %}" class="btn btn-simple">Home</a></li>
 						<li><a href="{% url 'login' %}" class="btn btn-simple">Log in</a></li>
@@ -66,7 +66,7 @@
 				{% endfor %}
 			</div>
 			{% endif %}
-            
+
 			{% block body_content %}{% endblock %}
 		</div>
 

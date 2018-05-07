@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import *
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class RegisterForm(UserCreationForm):
@@ -20,14 +21,6 @@ class RegisterForm(UserCreationForm):
         help_text='Required. Inform a valid email address.'
     )
 
-    # Fix to style the default controls
-    def __init__(self, *args, **kwargs):
-        super(RegisterForm, self).__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs['class'] = 'form-control'
-
-        # Add any overrides here
-
     class Meta:
         model = User
         fields = (
@@ -40,9 +33,14 @@ class RegisterForm(UserCreationForm):
         )
 
 
-class LoginForm(AuthenticationForm):
-    # Fix to style the default controls
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs['class'] = 'form-control'
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name',)
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio',)
+
