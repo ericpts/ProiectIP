@@ -34,7 +34,7 @@ class ImageAddView(LoginRequiredMixin, generic.FormView):
         title = form.cleaned_data['title']
 
         bw = to_bw(original_image)
-        color = to_color(bw)
+        color = bw # TODO: change to to_color(bw) when it works
 
         # Save images with random filenames.
         name = str(uuid.uuid4()) + '.jpg'
