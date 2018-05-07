@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 #
-# django-coconuts
 # Copyright (c) 2008-2017, Jeremy Lainé
 # All rights reserved.
 #

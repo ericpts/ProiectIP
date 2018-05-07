@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'images.apps.ImagesConfig',
-    'coconuts',
     'accounts',
     'bootstrap3',
 ]
