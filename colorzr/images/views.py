@@ -1,7 +1,10 @@
+from io import BytesIO
+
 from django.shortcuts import render
 from django.views import generic, View
 from django.urls import reverse_lazy
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 from images.models import SavedImage
@@ -30,21 +33,25 @@ class ImageAddView(generic.FormView):
     template_name = 'images/add_image.html'
 
     def form_valid(self, form):
-        raw_image = PIL.Image.open(form.cleaned_data['uploaded_file'])
+        original_image = PIL.Image.open(form.cleaned_data['original_image'])
         title = form.cleaned_data['title']
 
-        bw = to_bw(raw_image)
+        bw = to_bw(original_image)
         color = to_color(bw)
-
-        import pdb
-        pdb.set_trace()
 
         # Save images with random filenames.
         name = str(uuid.uuid4()) + '.jpg'
+        def pil_to_model(img: PIL.Image):
+            bio = BytesIO()
+            img.save(bio, format='JPEG')
+            return ContentFile(bio.getvalue())
 
         model_image = SavedImage()
         model_image.title = title
-        model_image.bw_image.save(name, bw)
-        model_image.color_image.save(name, color)
+        model_image.original_image.save(name, form.cleaned_data['original_image'])
+        model_image.bw_image.save(name, pil_to_model(bw))
+        model_image.color_image.save(name, pil_to_model(color))
 
         model_image.save()
+
+        return super().form_valid(form)
