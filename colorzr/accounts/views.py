@@ -1,48 +1,34 @@
-from django.http import *
-from django.shortcuts import render, redirect
-from django.template import RequestContext
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.contrib.auth import login, logout
+from django.urls import reverse_lazy
+from django.views import generic
 
 from .forms import RegisterForm, LoginForm
 
 
-def login_user(request, path):
-    """
-    Serves login view.
-    """
-    form = LoginForm(request.POST or None)
-    logout(request)
+class LoginView(generic.FormView):
+    form_class = LoginForm
+    success_url = reverse_lazy("home")
+    template_name = "accounts/login_user.html"
 
-    if request.POST:
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password')
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
+        return form_class(self.request, **self.get_form_kwargs())
 
-            user = authenticate(username=username, password=raw_password)
-            if user is not None and user.is_active:
-                login(request, user)
-                return redirect('home')
-            else:
-                print("Error")
-
-    return render(request, 'accounts/login_user.html', {'form': form})
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        return super().form_valid(form)
 
 
-def register_user(request, path):
-    """
-    Serves register view
-    """
-    form = RegisterForm(request.POST or None)
+class LogoutView(generic.RedirectView):
+    url = reverse_lazy("home")
 
-    if request.POST:
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('home')
-    
-    return render(request, 'accounts/register_user.html', {'form': form})
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super().get(request, *args, **kwargs)
+
+
+class RegisterView(generic.CreateView):
+    form_class = RegisterForm
+    success_url = reverse_lazy("login")
+    template_name = "accounts/register_user.html"

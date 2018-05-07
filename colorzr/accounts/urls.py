@@ -28,12 +28,11 @@
 #
 
 from django.conf.urls import url
-
-from accounts import views
+from . import views
 
 
 urlpatterns = [
-    # files
-    url(r'^login/(?P<path>.*)$', views.login_user),
-    url(r'^register/(?P<path>.*)$', views.register_user),
+    url(r"login/$", views.LoginView.as_view(), name="login"),
+    url(r"logout/$", views.LogoutView.as_view(), name="logout"),
+    url(r"signup/$", views.RegisterView.as_view(), name="register"),
 ]
