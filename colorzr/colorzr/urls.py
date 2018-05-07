@@ -29,17 +29,18 @@ router.register(r'groups', views.GroupViewSet)
 # and figure out how to add registration.
 
 api_urlpatterns = [
-    path('images/', include('images.urls')),
-    path('accounts/', include('rest_registration.api.urls')),
+    path('images/', include('images.urls'))
 ]
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include('coconuts.urls')),
+    path('home/', include('coconuts.urls')),
 
     path('admin/', admin.site.urls),
     path('api/', include(api_urlpatterns)),
-    path('accounts/', include('rest_framework.urls', namespace='rest_framework')),
+    path('accounts/', include('accounts.urls')),
     path('routes/', include(router.urls)),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken'))
 ]
