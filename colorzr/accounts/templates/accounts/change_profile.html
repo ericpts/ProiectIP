@@ -6,7 +6,8 @@
 {% block body_content %}
 <div class="container">
     <h1>My profile</h1>
-    <img src="{{ user.profile.avatar_url_or_default }}" alt="avatar"/>
+    <img src="{{ user.profile.avatar_url_or_default }}" class="img-rounded"
+         style="width: 128px; height: 128px;" alt="avatar"/>
     <h3>@{{ request.user.username }}</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

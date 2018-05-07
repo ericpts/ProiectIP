@@ -40,10 +40,18 @@
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="navigation-2">
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav navbar-right vertical-align">
 						{% if user.is_authenticated %}
 						<li><a href="#" class="btn btn-default btn-fill" data-toggle="modal" data-target="#postModal">Post</a></li>
-                        <li><a href="{% url 'change_profile' %}" class="btn btn-simple">@{{ request.user.username }}</a></li>
+                        <li>
+                            <a href="{% url 'change_profile' %}" class="btn btn-simple">
+                                <img class="iconos img-rounded" src="{{ request.user.profile.avatar_url_or_default }}" alt="avatar"
+                                style="width: 32px; height: 32px">
+                                <span class="my-0">
+                                    @{{ request.user.username }}
+                                </span>
+                            </a>
+                        </li>
 						<li><a href="{% url 'logout' %}" class="btn btn-simple">Log out</a></li>
 						{% else %}
 						<li><a href="{% url 'home' %}" class="btn btn-simple">Home</a></li>
