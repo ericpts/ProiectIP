@@ -8,6 +8,8 @@ from pathlib import Path
 from PIL import Image
 
 from contextlib import contextmanager
+
+
 @contextmanager
 def ftemp() -> Path:
     os.makedirs('/tmp/colorzr/', exist_ok=True)
@@ -18,27 +20,31 @@ def ftemp() -> Path:
     finally:
         f.close()
 
+
 def colorize_py_file() -> Path:
-    return (Path(__file__).resolve().parent.parent.parent / 'extern' / 'colorization' / 'colorization' / 'colorize.py').resolve()
+    return (Path(
+        __file__).resolve().parent.parent.parent / 'extern' / 'colorization' / 'colorization' / 'colorize.py').resolve()
+
 
 def to_bw(src_img: Image) -> Image:
     """ Turn the given image to black and white. """
     return src_img.convert(mode='L')
 
+
 def to_color(src_img: Image) -> Image:
     """ Colorize the given black and white image. """
-    ret = None # type: Image
+    ret = None  # type: Image
 
     with ftemp() as img_in:
         with ftemp() as img_out:
             src_img.save(str(img_in))
 
             p = subprocess.run(['python3', str(colorize_py_file()),
-                '-img_in', str(img_in),
-                '-img_out', str(img_out)],
-                cwd=str(colorize_py_file().parent.parent),
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE)
+                                '-img_in', str(img_in),
+                                '-img_out', str(img_out)],
+                               cwd=str(colorize_py_file().parent.parent),
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
 
             if p.returncode != 0:
                 print(p.stdout)

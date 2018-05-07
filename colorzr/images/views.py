@@ -6,13 +6,12 @@ from django.urls import reverse_lazy
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-
 from images.models import SavedImage
 from images.serializers import SavedImageSerializer
 from rest_framework import mixins, generics
 
 from . import forms
-from .imgproc import to_bw, to_color
+from .imgproc_mock import to_bw, to_color
 
 import uuid
 import PIL
@@ -26,6 +25,7 @@ class ImageList(generics.ListCreateAPIView):
 class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SavedImage.objects.all()
     serializer_class = SavedImageSerializer
+
 
 class ImageAddView(generic.FormView):
     form_class = forms.ImageAddForm
@@ -41,6 +41,7 @@ class ImageAddView(generic.FormView):
 
         # Save images with random filenames.
         name = str(uuid.uuid4()) + '.jpg'
+
         def pil_to_model(img: PIL.Image):
             bio = BytesIO()
             img.save(bio, format='JPEG')

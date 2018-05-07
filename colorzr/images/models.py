@@ -1,5 +1,4 @@
 from django.db import models
-from PIL import Image
 
 
 class SavedImage(models.Model):
