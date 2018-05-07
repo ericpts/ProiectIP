@@ -11,5 +11,8 @@ class ImageConversion(models.Model):
     color_image = models.ImageField(upload_to='color/')
     original_image = models.ImageField(upload_to='original/')
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         ordering = ('created',)

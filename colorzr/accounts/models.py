@@ -26,6 +26,9 @@ class Profile(models.Model):
             return self.avatar.url
         return static("img/default-avatar.jpg")
 
+    def __str__(self):
+        return self.user.username
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
