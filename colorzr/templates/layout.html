@@ -53,12 +53,9 @@
 						<a href="{% url 'my_album' %}" class="btn btn-default">My Album</a>
 					</li>
 					<li>
-						<a href="{% url 'change_profile' %}" class="btn btn-simple">
-							<img class="iconos img-rounded" src="{{ request.user.profile.avatar_url_or_default }}" alt="avatar" style="width: 32px; height: 32px">
-							<span class="my-0">
-								@{{ request.user.username }}
-							</span>
-						</a>
+                        {% with request.user as user %}
+                            {% include "accounts/thumbnail_profile.html" %}
+                        {% endwith %}
 					</li>
 					<li>
 						<a href="{% url 'logout' %}" class="btn btn-simple">Log out</a>

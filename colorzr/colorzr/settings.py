@@ -142,8 +142,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets')]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Coconuts settings
-
-tmp_dir = os.path.join(BASE_DIR, 'files/coconuts')
-COCONUTS_CACHE_ROOT = os.path.join(tmp_dir, 'cache')
-COCONUTS_DATA_ROOT = os.path.join(tmp_dir, 'data')
+THUMBNAIL_DEBUG = True
