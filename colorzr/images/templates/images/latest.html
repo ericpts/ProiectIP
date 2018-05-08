@@ -5,13 +5,12 @@
 
 {% block body_content %}
 <div class="container">
-    <h2> Latest </h2>
+    <h2> Newsfeed </h2>
     <ul class="list-group">
     {% for image in image_list %}
         <li class="list-group-item">
             <div class="container">
                 {% include "images/image.html" %}
-                <p class="emph">Uploaded by <a href="/accounts/profile/{{ image.author }}"> @{{ image.author }} </a> </p>
             </div>
         </li>
     {% empty %}

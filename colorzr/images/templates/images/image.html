@@ -1,9 +1,15 @@
 <!-- Template used to render individual images. -->
 {% load thumbnail %}
 {% load static %}
+
 <div class="panel-heading">
     <h3>{{ image.title }}</h3>
-    <p class="emph">Created at: {{ image.created }} by @{{ image.author }}</p>
+    <p class="emph">Created on {{ image.created }} by
+        {% with image.author as user %}
+            {% include "accounts/thumbnail_profile.html" %}
+        {% endwith %}
+    </p>
+
 </div>
 
 <div class="panel-body">

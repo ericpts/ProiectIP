@@ -73,6 +73,10 @@ class ViewProfileView(View):
     def get(self, request, *args, **kwargs):
         username = kwargs['username']
         user = get_object_or_404(User, username=username)
+
+        if user == request.user:
+            return redirect('change_profile')
+
         return render(request, self.template_name, {
             'user': user,
             'following': Follow.objects.follows(request.user, user),
