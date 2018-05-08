@@ -35,7 +35,7 @@ Picture {{ image.title }} | {{ block.super }}
             <div class="text">
                 <span>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
             </div>
-            <div class="rating">
+            <div class="rating-small">
             </div>
         </div>
         <div class="col col-md-6 text-right">
@@ -51,7 +51,7 @@ Picture {{ image.title }} | {{ block.super }}
     </div>
 </div>
 <script>
-$(".rating").starRating({
+$(".rating-small").starRating({
     starSize: 20,
     useFullStars: true,
     initialRating: {{ image.get_mean_rating }},
