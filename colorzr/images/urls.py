@@ -11,4 +11,6 @@ urlpatterns = [
         views.AlbumView.as_view(),
         name='album'),
     url(r'^album/$', views.AlbumView.as_view(), name='my_album'),
+
+    url(r'^latest/$', views.LatestView.as_view(), name='latest'),
 ]

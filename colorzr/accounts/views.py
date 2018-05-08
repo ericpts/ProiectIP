@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic, View
 
@@ -62,3 +63,14 @@ class ChangeProfileView(LoginRequiredMixin, View):
             return redirect('change_profile')
         else:
             messages.error(request, 'Please correct the error below.')
+
+
+class ViewProfileView(View):
+    template_name = 'accounts/view_profile.html'
+
+    def get(self, request, *args, **kwargs):
+        username = kwargs['username']
+        user = get_object_or_404(User, username=username)
+        return render(request, self.template_name, {
+            'user': user,
+        })

@@ -59,3 +59,12 @@ class AlbumView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return ImageConversion.objects.filter(author__exact=self.author)
+
+
+class LatestView(generic.ListView):
+    template_name = 'images/latest.html'
+    model = ImageConversion
+    context_object_name = 'image_list'
+
+    def get_queryset(self):
+        return ImageConversion.objects.order_by('-created')

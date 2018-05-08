@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% load bootstrap3 %}
+
+{% block title_tag %} Latest pictures | {{ block.super }}{% endblock %}
+
+{% block body_content %}
+<div class="container">
+    <h1> Latest </h1>
+    <ul class="list-group">
+    {% for image in image_list %}
+        <li class="list-group-item">
+            <div class="container">
+                <h3>{{ image.title }}</h3>
+                <div class="image-container">
+                    <div class="overlay">
+                        <img src="{{ image.color_image.url }}" />
+                    </div>
+                    <img src="{{ image.bw_image.url }}" />
+                </div>
+                <p class="emph">Uploaded at: {{ image.created }} by <a href="/accounts/profile/{{ image.author }}"> @{{ image.author }} </a> </p>
+            </div>
+        </li>
+    {% empty %}
+        <h5> No images have been uploaded yet to the website.</h5>
+        <h5> Be the first one to upload a picture!</h5>
+        <a href="{% url 'upload' %}" cls="btn btn-default btn-block" >+ Add new</a>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
