@@ -14,11 +14,11 @@
         <a href="{% url 'image_detail' pk=image.pk %}">
         {% thumbnail image.color_image "200x200" crop="center" as color_thumb %}
         {% thumbnail image.bw_image "200x200" crop="center" as bw_thumb %}
-            <img src="{{ bw_thumb.url }}"
-                 width="{{ bw_thumb.width }}"
-                 height="{{ bw_thumb.height }}"
-                 onmouseover="this.src='{{color_thumb.url}}';"
-                 onmouseout="this.src='{{bw_thumb.url}}';"
+            <img src="{{ color_thumb.url }}"
+                 width="{{ color_thumb.width }}"
+                 height="{{ color_thumb.height }}"
+                 onmouseover="this.src='{{bw_thumb.url}}';"
+                 onmouseout="this.src='{{color_thumb.url}}';"
             />
         {% endthumbnail %}
         {% endthumbnail %}
