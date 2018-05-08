@@ -3,4 +3,5 @@ __pycache__
 extern/cifar/data
 .vscode
 colorzr/media/
+.idea/
 
