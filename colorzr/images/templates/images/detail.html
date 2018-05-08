@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
+{% load static %}
 
 {% block title_tag %}
-
 Picture {{ image.title }} | {{ block.super }}
-
 {% endblock %}
 
 {% block body_content %}
+
+<script src="{% static 'js/jquery-1.10.2.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/jquery.star-rating-svg.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/jquery.star-rating-svg.js' %}" type="text/css"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/star-rating-svg.css' %}"/>
 
 
 <div class="container">
@@ -22,4 +26,70 @@ Picture {{ image.title }} | {{ block.super }}
         </div>
     </div>
 </div>
+
+<!-- Rating related -->
+
+<div class="container">
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="text">
+                <span>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
+            </div>
+            <div class="rating">
+            </div>
+        </div>
+        <div class="col col-md-6 text-right">
+
+            {% if image.author == request.user %}
+                <form method="post" action="{% url 'delete' pk=image.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger"> Delete </button>
+                </form>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+<script>
+$(".rating").starRating({
+    starSize: 20,
+    useFullStars: true,
+    initialRating: {{ image.get_mean_rating }},
+    callback: (currentRating, $el) => {
+        $.post("{% url 'image_rate' pk=image.pk %}", {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'rating': currentRating,
+        });
+    },
+});
+</script>
+
+
+<!-- Comments related -->
+
+
+<div class="container">
+
+    <h2> Comments </h2>
+
+    {% for comment in image.comment_set.all %}
+        {% include "accounts/thumbnail_profile.html" with user=comment.author  %}
+        <p> {{comment.text}} </p>
+    {% endfor %}
+
+    <form method="post" action="{% url 'image_comment' pk=image.pk %}">
+        {% csrf_token %}
+        <div class="row">
+            <textarea name="content"
+                      rows="5"
+                      cols="50">
+            </textarea>
+        </div>
+
+        <div class="row">
+            <button type="submit" class="btn btn-primary"> Post </button>
+        </div>
+    </form>
+</div>
+
 {% endblock %}

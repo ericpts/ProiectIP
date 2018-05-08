@@ -16,4 +16,12 @@ urlpatterns = [
     url(r'^image_detail/(?P<pk>\d+)/$',
         views.ImageDetailView.as_view(),
         name='image_detail'),
+
+    url(r'^image_rate/(?P<pk>\d+)/$',
+        views.ImageRateView.as_view(),
+        name='image_rate'),
+
+    url(r'^image_comment/(?P<pk>\d+)/$',
+        views.ImageCommentView.as_view(),
+        name='image_comment'),
 ]

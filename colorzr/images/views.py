@@ -8,9 +8,12 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 from friendship.models import Follow
+from django.http import HttpResponse
 
 from . import forms
 from . import models
+
+from social.models import Rating, Comment
 
 
 class ImageCreate(LoginRequiredMixin, generic.FormView):
@@ -92,3 +95,29 @@ class ImageDetailView(generic.DetailView):
     template_name = 'images/detail.html'
     model = models.ImageConversion
     context_object_name = 'image'
+
+class ImageRateView(generic.View):
+    def post(self, request, *args, **kwargs):
+        image_pk = kwargs['pk']
+        image = get_object_or_404(
+                models.ImageConversion, pk=image_pk)
+        rating = int(request.POST['rating'])
+        Rating.objects.update_or_create(
+                author=request.user,
+                image=image,
+                defaults={'rating': rating},
+        )
+        return HttpResponse(status=204)
+
+class ImageCommentView(generic.View):
+    def post(self, request, *args, **kwargs):
+        image_pk = kwargs['pk']
+        image = get_object_or_404(
+                models.ImageConversion, pk=image_pk)
+
+        Comment.objects.create(
+                author=request.user,
+                image=image,
+                text=request.POST['content']
+        )
+        return HttpResponse(status=204)
