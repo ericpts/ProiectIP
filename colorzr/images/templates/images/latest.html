@@ -6,18 +6,10 @@
 {% block body_content %}
 <div class="container">
     <h2> Newsfeed </h2>
-    <ul class="list-group">
-    {% for image in image_list %}
-        <li class="list-group-item">
-            <div class="container">
-                {% include "images/image.html" %}
-            </div>
-        </li>
-    {% empty %}
-        <h5> No images have been uploaded yet to the website.</h5>
-        <h5> Be the first one to upload a picture!</h5>
-        <a href="{% url 'upload' %}" cls="btn btn-default btn-block" >+ Add new</a>
-    {% endfor %}
-    </ul>
+    <hr />
+    {% include "images/image_set.html" with heading='New' image_list=new_images %}
+    {% include "images/image_set.html" with heading='Following' image_list=following_images %}
+    {% include "images/image_set.html" with heading='Trending' image_list=trending_images %}
+    {% include "images/image_set.html" with heading='Random' image_list=random_images %}
 </div>
 {% endblock %}

@@ -5,7 +5,8 @@
 
 {% block body_content %}
 <div class="container">
-    <h1>My profile</h1>
+    <h2>Edit Profile</h2>
+    <hr/>
     <img src="{{ user.profile.avatar_url_or_default }}" class="img-rounded"
          style="width: 128px; height: 128px;" alt="avatar"/>
     <h3>@{{ request.user.username }}</h3>
@@ -14,6 +15,7 @@
         {% bootstrap_form user_form %}
         {% bootstrap_form profile_form %}
         <input type="submit" value="Save changes" class="btn btn-primary btn-block"/>
+        <input type="button" value="Discard changes" class="btn btn-secondary btn-block" onClick="javascript:history.go(-1);">
     </form>
 </div>
 {% endblock %}

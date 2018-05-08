@@ -1,10 +1,13 @@
+import random
 import uuid
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
+from friendship.models import Follow
 
 from . import forms
 from . import models
@@ -51,6 +54,10 @@ class AlbumView(LoginRequiredMixin, generic.ListView):
     paginate_by = 20
     author = None
 
+    def get_context_data(self, **kwargs):
+        kwargs['controls_enabled'] = (self.request.user == self.author)
+        return super().get_context_data(**kwargs)
+
     def dispatch(self, request, *args, **kwargs):
         username = kwargs.get('username', request.user.username)
         self.author = get_object_or_404(User, username=username)
@@ -61,10 +68,22 @@ class AlbumView(LoginRequiredMixin, generic.ListView):
         return models.ImageConversion.objects.filter(author__exact=self.author)
 
 
-class LatestView(generic.ListView):
+class LatestView(generic.TemplateView):
     template_name = 'images/latest.html'
     model = models.ImageConversion
     context_object_name = 'image_list'
+
+    def get_context_data(self, **kwargs):
+        kwargs["new_images"] = models.ImageConversion.objects.order_by('-id')[:9]
+        kwargs["following_images"] = models.ImageConversion.objects\
+            .filter(author__in=Follow.objects.following(self.request.user))\
+            .order_by('-id')[:9]
+        kwargs["trending_images"] = models.ImageConversion.objects\
+            .annotate(num_ratings=Count('rating'))\
+            .order_by('-num_ratings')[:9]
+        kwargs["random_images"] = models.ImageConversion.objects.order_by('?')[:9]
+
+        return super().get_context_data(**kwargs)
 
     def get_queryset(self):
         return models.ImageConversion.objects.order_by('-created')

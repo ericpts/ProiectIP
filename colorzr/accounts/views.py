@@ -71,11 +71,8 @@ class ViewProfileView(View):
     template_name = 'accounts/view_profile.html'
 
     def get(self, request, *args, **kwargs):
-        username = kwargs['username']
+        username = kwargs.get('username', request.user.username)
         user = get_object_or_404(User, username=username)
-
-        if user == request.user:
-            return redirect('change_profile')
 
         return render(request, self.template_name, {
             'user': user,

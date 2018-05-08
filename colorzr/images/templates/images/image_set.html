@@ -1,0 +1,14 @@
+<div class="container">
+    <h4> {{ heading }} </h4>
+    <ul class="list-group grid">
+    {% for image in image_list %}
+        <li class="list-group-item col-md-4">
+            <div class="container">
+                {% include "images/image.html" with controls_enabled=False %}
+            </div>
+        </li>
+    {% empty %}
+        <h5> No images have been uploaded yet.</h5>
+    {% endfor %}
+    </ul>
+</div>

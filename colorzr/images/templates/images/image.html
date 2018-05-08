@@ -4,25 +4,22 @@
 
 <div class="panel-heading">
     <h3>{{ image.title }}</h3>
-    <p class="emph">Created on {{ image.created }} by
-        {% with image.author as user %}
-            {% include "accounts/thumbnail_profile.html" %}
-        {% endwith %}
-    </p>
+    <p class="emph">Created on {{ image.created }} </p>
+    <p>by {% include "accounts/thumbnail_profile.html" with user=image.author %}</p>
 
 </div>
 
 <div class="panel-body">
     <div class="overlay">
-        {% thumbnail image.color_image "200x200" crop="center" as im %}
-            {% thumbnail image.bw_image "200x200" crop="center" as im2 %}
-                <img src="{{ im.url }}"
-                     width="{{ im.width }}"
-                     height="{{ im.height }}"
-                     onmouseover="this.src='{{im2.url}}';"
-                     onmouseout="this.src='{{im.url}}';"
-                />
-            {% endthumbnail %}
+        {% thumbnail image.color_image "200x200" crop="center" as color_thumb %}
+        {% thumbnail image.bw_image "200x200" crop="center" as bw_thumb %}
+            <img src="{{ bw_thumb.url }}"
+                 width="{{ bw_thumb.width }}"
+                 height="{{ bw_thumb.height }}"
+                 onmouseover="this.src='{{color_thumb.url}}';"
+                 onmouseout="this.src='{{bw_thumb.url}}';"
+            />
+        {% endthumbnail %}
         {% endthumbnail %}
     </div>
 </div>
@@ -38,7 +35,7 @@
              src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
         <span>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
     </div>
-    {% if image.author == request.user %}
+    {% if controls_enabled %}
     <form method="post" action="{% url 'delete' pk=image.pk %}">
         {% csrf_token %}
         <input type="submit" value="Delete" />

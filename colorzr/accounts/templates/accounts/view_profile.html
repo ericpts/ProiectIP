@@ -6,10 +6,21 @@
 
 {% block body_content %}
 <div class="container">
-    <h2>Profile of @{{ user.username }} </h2>
-    <img src="{{ user.profile.avatar_url_or_default }}" class="img-rounded" style="width: 128px; height: 128px;" alt="avatar"/>
+    {% if user != request.user %}
+        <h2>@{{ user.username }}'s Profile</h2>
+    {% else %}
+        <h2>My Profile</h2>
+        <div class="text">
+            <a href="{% url 'change_profile' %}" class="btn btn-default">Edit</a>
+        </div>
+    {% endif %}
+    <hr/>
 
-    <p> {{ user.get_full_name }} joined colorzr on {{ user.date_joined }} </p>
+
+    <img src="{{ user.profile.avatar_url_or_default }}" class="img-rounded" width=256 height=256 alt="avatar"/>
+
+    <p> {{ user.get_full_name }} </p>
+    <p> joined colorzr on {{ user.date_joined }} </p>
 
     <a href="{% url 'album' username=user.username %}"> See his album </a>
     <div class="text">
@@ -19,6 +30,7 @@
         {% endif %}
     </div>
 
+    {% if user != request.user %}
     {% if following %}
     <form method="post" action="{% url 'unfollow'%}">
         {% csrf_token %}
@@ -33,6 +45,7 @@
         <input type="hidden" name="next" value="{{ request.get_full_path }}" />
         <input type="submit" class="btn btn-primary" value="+ Follow" />
     </form>
+    {% endif %}
     {% endif %}
 </div>
 {% endblock %}
