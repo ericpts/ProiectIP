@@ -73,7 +73,7 @@ class ViewProfileView(View):
         user = get_object_or_404(User, username=username)
 
         if user == request.user:
-            return ChangeProfileView().get(request, *args, **kwargs)
+            return redirect('change_profile')
 
         return render(request, self.template_name, {
             'user': user,
