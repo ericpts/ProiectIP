@@ -38,7 +38,7 @@ class ImageAddView(LoginRequiredMixin, generic.FormView):
 
 class ImageDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = ImageConversion
-    success_url = reverse_lazy('album')
+    success_url = reverse_lazy('my_album')
 
     def get_queryset(self):
         return ImageConversion.objects.filter(author__exact=self.request.user)
