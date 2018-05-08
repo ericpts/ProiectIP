@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% load bootstrap3 %}
+
+{% block title_tag %}Album | {{ block.super }}{% endblock %}
+
+{% block body_content %}
+<div class="container">
+    <h1>Album</h1>
+    <a href="{% url 'upload' %}" cls="btn btn-default btn-block" >+ Add new</a>
+    <ul class="list-group">
+    {% for image in image_list %}
+        <li class="list-group-item">
+            <div class="container">
+                <div class="image-container">
+                    <div class="overlay">
+                        <img src="{{ image.color_image.url }}" />
+                    </div>
+                    <img src="{{ image.bw_image.url }}" />
+                </div>
+                <h3>{{ image.title }}</h3>
+                <p class="emph">Created at: {{ image.created }}</p>
+                {% if image.author == request.user %}
+                <form method="post" action="{% url 'delete' pk=image.pk %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+                {% endif %}
+            </div>
+        </li>
+    {% empty %}
+        <h3>There are no images in @{{ request.user }}'s album (yet). </h3>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

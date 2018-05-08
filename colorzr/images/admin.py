@@ -1,4 +1,17 @@
 from django.contrib import admin
 from .models import ImageConversion
 
-admin.site.register(ImageConversion)
+
+class ImageConversionAdmin(admin.ModelAdmin):
+    fields = [
+        'title',
+        'author',
+        'created',
+        'original_image',
+        'bw_image',
+        'color_image',
+    ]
+    readonly_fields = ['author', 'created']
+
+
+admin.site.register(ImageConversion, ImageConversionAdmin)

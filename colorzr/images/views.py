@@ -1,57 +1,61 @@
 import uuid
-from io import BytesIO
 
-import PIL
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.files.base import ContentFile
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
-from rest_framework import generics
 
-from .serializers import ImageConversionSerializer
-from .models import ImageConversion
 from . import forms
-from .imgproc_mock import to_bw, to_color
-
-
-class ImageList(LoginRequiredMixin, generics.ListCreateAPIView):
-    queryset = ImageConversion.objects.all()
-    serializer_class = ImageConversionSerializer
-
-
-class ImageDetail(LoginRequiredMixin, generics.RetrieveUpdateDestroyAPIView):
-    queryset = ImageConversion.objects.all()
-    serializer_class = ImageConversionSerializer
+from .models import ImageConversion
 
 
 class ImageAddView(LoginRequiredMixin, generic.FormView):
     form_class = forms.ImageAddForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('album')
     template_name = 'images/upload-image.html'
 
     def form_valid(self, form):
-        original_image = PIL.Image.open(form.cleaned_data['original_image'])
+        original_image = form.cleaned_data['original_image']
         title = form.cleaned_data['title']
 
-        bw = to_bw(original_image)
-        color = bw # TODO: change to to_color(bw) when it works
-
-        # Save images with random filenames.
+        bw, color = ImageConversion.convert(original_image)
+        # Random names for conversions
         name = str(uuid.uuid4()) + '.jpg'
-
-        def pil_to_model(img: PIL.Image):
-            bio = BytesIO()
-            img.save(bio, format='JPEG')
-            return ContentFile(bio.getvalue())
 
         model_image = ImageConversion()
 
         model_image.title = title
         model_image.author = self.request.user
-        model_image.original_image.save(name, form.cleaned_data['original_image'])
-        model_image.bw_image.save(name, pil_to_model(bw))
-        model_image.color_image.save(name, pil_to_model(color))
+        model_image.original_image.save(name, original_image)
+        model_image.bw_image.save(name, bw)
+        model_image.color_image.save(name, color)
 
         model_image.save()
 
         return super().form_valid(form)
+
+
+class ImageDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = ImageConversion
+    success_url = reverse_lazy('album')
+
+    def get_queryset(self):
+        return ImageConversion.objects.filter(author__exact=self.request.user)
+
+
+class AlbumView(LoginRequiredMixin, generic.ListView):
+    template_name = 'images/album.html'
+    model = ImageConversion
+    context_object_name = 'image_list'
+    paginate_by = 20
+    author = None
+
+    def dispatch(self, request, *args, **kwargs):
+        username = kwargs.get('username', request.user.username)
+        self.author = get_object_or_404(User, username=username)
+
+        return super(AlbumView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ImageConversion.objects.filter(author__exact=self.author)
