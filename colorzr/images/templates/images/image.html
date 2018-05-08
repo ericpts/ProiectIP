@@ -11,6 +11,7 @@
 
 <div class="panel-body">
     <div class="overlay">
+        <a href="{% url 'image_detail' pk=image.pk %}">
         {% thumbnail image.color_image "200x200" crop="center" as color_thumb %}
         {% thumbnail image.bw_image "200x200" crop="center" as bw_thumb %}
             <img src="{{ bw_thumb.url }}"
