@@ -1,6 +1,7 @@
 import random
 import uuid
 
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Count
@@ -14,6 +15,7 @@ from . import forms
 from . import models
 
 from social.models import Rating, Comment
+from social.forms import CommentAddForm
 
 
 class ImageCreate(LoginRequiredMixin, generic.FormView):
@@ -111,13 +113,18 @@ class ImageRateView(generic.View):
 
 class ImageCommentView(generic.View):
     def post(self, request, *args, **kwargs):
-        image_pk = kwargs['pk']
-        image = get_object_or_404(
-                models.ImageConversion, pk=image_pk)
+        form = CommentAddForm(request.POST)
+
+        import pdb
+        pdb.set_trace()
+
+        image_pk = self.kwargs['pk']
+        image = get_object_or_404(models.ImageConversion, pk=image_pk)
 
         Comment.objects.create(
                 author=request.user,
                 image=image,
-                text=request.POST['content']
+                text=form.cleaned_data['content']
         )
-        return HttpResponse(status=204)
+
+        return redirect(request.POST['next'])

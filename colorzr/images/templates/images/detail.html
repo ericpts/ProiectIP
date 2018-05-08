@@ -59,6 +59,9 @@ $(".rating").starRating({
         $.post("{% url 'image_rate' pk=image.pk %}", {
             'csrfmiddlewaretoken': '{{ csrf_token }}',
             'rating': currentRating,
+            success: () => {
+                window.location.reload();
+            },
         });
     },
 });
@@ -68,7 +71,7 @@ $(".rating").starRating({
 <!-- Comments related -->
 
 
-<div class="container">
+<div class="container" style="width: 50%;">
 
     <h2> Comments </h2>
 
@@ -79,16 +82,10 @@ $(".rating").starRating({
 
     <form method="post" action="{% url 'image_comment' pk=image.pk %}">
         {% csrf_token %}
-        <div class="row">
-            <textarea name="content"
-                      rows="5"
-                      cols="50">
-            </textarea>
-        </div>
 
-        <div class="row">
-            <button type="submit" class="btn btn-primary"> Post </button>
-        </div>
+        <textarea name="content" style="display: block; width: 100%;"></textarea>
+        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+        <button type="submit" class="btn btn-primary"> Post </button>
     </form>
 </div>
 
