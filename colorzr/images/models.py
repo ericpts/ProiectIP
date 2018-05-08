@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 import PIL
@@ -33,5 +34,20 @@ class ImageConversion(models.Model):
 
         return pil_to_model(bw), pil_to_model(color)
 
+
+class Rating(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+    image = models.ForeignKey(ImageConversion, editable=False, on_delete=models.CASCADE)
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+
     class Meta:
-        ordering = ('created', )
+        unique_together = (('author', 'image'), )
+
+
+class Comment(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+    image = models.ForeignKey(ImageConversion, editable=False, on_delete=models.CASCADE)
+    text = models.TextField(max_length=1024)
+
