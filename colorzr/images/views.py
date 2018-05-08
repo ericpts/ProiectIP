@@ -12,7 +12,7 @@ from .models import ImageConversion
 
 class ImageAddView(LoginRequiredMixin, generic.FormView):
     form_class = forms.ImageAddForm
-    success_url = reverse_lazy('album')
+    success_url = reverse_lazy('my_album')
     template_name = 'images/upload-image.html'
 
     def form_valid(self, form):
