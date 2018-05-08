@@ -47,7 +47,7 @@
 				<ul class="nav navbar-nav navbar-right vertical-align">
 					{% if user.is_authenticated %}
 					<li>
-						<a href="/images/upload-image" class="btn btn-default">Upload new image</a>
+						<a href="{% url 'my_album' %}" class="btn btn-default">My Album</a>
 					</li>
 					<li>
 						<a href="{% url 'change_profile' %}" class="btn btn-simple">
