@@ -29,6 +29,14 @@ class Profile(models.Model):
         return self.user.username
 
 
+class Follower(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower_set", blank=False)
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following_set", blank=False)
+
+    def __str__(self):
+        return "{0} follows {1}".format(self.follower, self.followed)
+
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
