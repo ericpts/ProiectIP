@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ImageConversion
+from .models import *
 
 
 class ImageConversionAdmin(admin.ModelAdmin):
@@ -15,3 +15,5 @@ class ImageConversionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ImageConversion, ImageConversionAdmin)
+admin.site.register(Rating)
+admin.site.register(Comment)

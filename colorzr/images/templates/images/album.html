@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
+{% load static %}
 
 {% block title_tag %}Album | {{ block.super }}{% endblock %}
 
@@ -19,6 +20,13 @@
                 </div>
                 <h3>{{ image.title }}</h3>
                 <p class="emph">Created at: {{ image.created }}</p>
+                <img class="pull-left icon-chevron-right" width="24" height="24"
+                     src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
+                <span>{{ image.comment_set.count }}</span>
+
+                <img class="pull-left icon-chevron-right" width="24" height="24"
+                     src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
+                <p>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</p>
                 {% if image.author == request.user %}
                 <form method="post" action="{% url 'delete' pk=image.pk %}">
                     {% csrf_token %}

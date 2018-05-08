@@ -6,12 +6,14 @@ from django.db import models
 import PIL
 from io import BytesIO
 
+from django.db.models import Avg
+
 from .imgproc_mock import to_bw, to_color
 
 
 class ImageConversion(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
 
     bw_image = models.ImageField(upload_to='bw/')
@@ -19,7 +21,7 @@ class ImageConversion(models.Model):
     original_image = models.ImageField(upload_to='original/')
 
     def __str__(self):
-        return self.title
+        return "{0}'s \"{1}\"".format(self.author, self.title)
 
     @staticmethod
     def convert(image):
@@ -34,20 +36,30 @@ class ImageConversion(models.Model):
 
         return pil_to_model(bw), pil_to_model(color)
 
+    def get_mean_rating(self):
+        if self.rating_set.count() == 0:
+            return 0
+        return self.rating_set.aggregate(Avg('rating'))['rating__avg']
+
 
 class Rating(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
-    image = models.ForeignKey(ImageConversion, editable=False, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ForeignKey(ImageConversion, on_delete=models.CASCADE)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     class Meta:
-        unique_together = (('author', 'image'), )
+        unique_together = (('author', 'image'),)
+
+    def __str__(self):
+        return "{0}* rating to {1}'s {2}".format(self.rating, self.image.author, self.image.title)
 
 
 class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
-    image = models.ForeignKey(ImageConversion, editable=False, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ForeignKey(ImageConversion, on_delete=models.CASCADE)
     text = models.TextField(max_length=1024)
 
+    def __str__(self):
+        return "[{0}]: {1}".format(self.author, self.text)

@@ -7,10 +7,10 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from . import forms
-from .models import ImageConversion
+from . import models
 
 
-class ImageAddView(LoginRequiredMixin, generic.FormView):
+class ImageCreate(LoginRequiredMixin, generic.FormView):
     form_class = forms.ImageAddForm
     success_url = reverse_lazy('my_album')
     template_name = 'images/upload-image.html'
@@ -19,11 +19,11 @@ class ImageAddView(LoginRequiredMixin, generic.FormView):
         original_image = form.cleaned_data['original_image']
         title = form.cleaned_data['title']
 
-        bw, color = ImageConversion.convert(original_image)
+        bw, color = models.ImageConversion.convert(original_image)
         # Random names for conversions
         name = str(uuid.uuid4()) + '.jpg'
 
-        model_image = ImageConversion()
+        model_image = models.ImageConversion()
 
         model_image.title = title
         model_image.author = self.request.user
@@ -36,17 +36,17 @@ class ImageAddView(LoginRequiredMixin, generic.FormView):
         return super().form_valid(form)
 
 
-class ImageDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = ImageConversion
+class ImageDelete(LoginRequiredMixin, generic.DeleteView):
+    model = models.ImageConversion
     success_url = reverse_lazy('my_album')
 
     def get_queryset(self):
-        return ImageConversion.objects.filter(author__exact=self.request.user)
+        return models.ImageConversion.objects.filter(author__exact=self.request.user)
 
 
 class AlbumView(LoginRequiredMixin, generic.ListView):
     template_name = 'images/album.html'
-    model = ImageConversion
+    model = models.ImageConversion
     context_object_name = 'image_list'
     paginate_by = 20
     author = None
@@ -58,4 +58,4 @@ class AlbumView(LoginRequiredMixin, generic.ListView):
         return super(AlbumView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ImageConversion.objects.filter(author__exact=self.author)
+        return models.ImageConversion.objects.filter(author__exact=self.author)
