@@ -3,9 +3,11 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic, View
+from friendship.models import Follow
 
 from . import forms
 
@@ -73,4 +75,19 @@ class ViewProfileView(View):
         user = get_object_or_404(User, username=username)
         return render(request, self.template_name, {
             'user': user,
+            'following': Follow.objects.follows(request.user, user),
         })
+
+
+class FollowCreate(LoginRequiredMixin, View):
+    def post(self, request):
+        Follow.objects.add_follower(request.user,
+                                    get_object_or_404(User, username=request.POST['username']))
+        return redirect(request.POST['next'])
+
+
+class FollowDelete(LoginRequiredMixin, View):
+    def post(self, request):
+        Follow.objects.remove_follower(request.user,
+                                       get_object_or_404(User, username=request.POST['username']))
+        return redirect(request.POST['next'])

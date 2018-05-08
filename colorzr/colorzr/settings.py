@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'images.apps.ImagesConfig',
     'accounts',
     'bootstrap3',
+    'friendship',
 
     # Plugin for generating image thumbnails.
     'sorl.thumbnail',

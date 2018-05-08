@@ -7,6 +7,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 # Create your models here.
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from friendship.models import Follow
 
 
 def user_directory_path(instance, filename):
@@ -27,14 +28,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-
-
-class Follower(models.Model):
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower_set", blank=False)
-    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following_set", blank=False)
-
-    def __str__(self):
-        return "{0} follows {1}".format(self.follower, self.followed)
 
 
 @receiver(post_save, sender=User)
