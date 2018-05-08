@@ -32,8 +32,8 @@ urlpatterns = [
     url(r"^$", HomeView.as_view(), name="home"),
     url('^admin/', admin.site.urls),
     url('^routes/', include(router.urls)),
-    url('^accounts/', include('accounts.urls')),
-    url('^images/', include('images.urls')),
+    url('^', include('accounts.urls')),
+    url('^', include('images.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
