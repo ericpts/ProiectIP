@@ -15,5 +15,3 @@ class ImageConversionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ImageConversion, ImageConversionAdmin)
-admin.site.register(Rating)
-admin.site.register(Comment)

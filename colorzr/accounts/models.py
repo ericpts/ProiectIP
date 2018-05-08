@@ -21,7 +21,6 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to=user_directory_path, blank=True)
 
     def avatar_url_or_default(self):
-        print(self.avatar)
         if self.avatar:
             return self.avatar.url
         return static("img/default-avatar.jpg")

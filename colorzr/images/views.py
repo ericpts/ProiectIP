@@ -87,3 +87,8 @@ class LatestView(generic.TemplateView):
 
     def get_queryset(self):
         return models.ImageConversion.objects.order_by('-created')
+
+class ImageDetailView(generic.DetailView):
+    template_name = 'images/detail.html'
+    model = models.ImageConversion
+    context_object_name = 'image'

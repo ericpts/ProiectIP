@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load bootstrap3 %}
+
+{% block title_tag %}
+
+Picture {{ image.title }} | {{ block.super }}
+
+{% endblock %}
+
+{% block body_content %}
+
+
+<div class="container">
+    <h2> The "{{ image.title }}" </h2>
+
+    <div class="row">
+        <div class="col col-md-6">
+            <img src={{image.color_image.url}} class="img-responsive"/>
+        </div>
+        <div class="col col-md-6">
+            <img src={{image.bw_image.url}} class="img-responsive"/>
+        </div>
+    </div>
+</div>
+{% endblock %}

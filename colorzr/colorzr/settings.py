@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'bootstrap3',
     'friendship',
+    'social',
 
     # Plugin for generating image thumbnails.
     'sorl.thumbnail',
