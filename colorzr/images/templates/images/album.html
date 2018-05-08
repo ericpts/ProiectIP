@@ -10,17 +10,11 @@
     <a href="{% url 'upload' %}" cls="btn btn-default btn-block" >+ Add new</a>
     <ul class="list-group">
     {% for image in image_list %}
-        <li class="list-group-item">
-            <div class="container">
-                {% include "images/image.html" %}
-                {% if image.author == request.user %}
-                <form method="post" action="{% url 'delete' pk=image.pk %}">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete" />
-                </form>
-                {% endif %}
-            </div>
+        <a href="{% url 'my_album'%}">
+        <li class="list-group-item panel panel-default">
+            {% include "images/image.html" %}
         </li>
+        </a>
     {% empty %}
         <h3>There are no images in @{{ request.user }}'s album (yet). </h3>
     {% endfor %}

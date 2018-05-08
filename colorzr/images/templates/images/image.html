@@ -1,8 +1,12 @@
 <!-- Template used to render individual images. -->
 {% load thumbnail %}
+{% load static %}
+<div class="panel-heading">
+    <h3>{{ image.title }}</h3>
+    <p class="emph">Created at: {{ image.created }} by @{{ image.author }}</p>
+</div>
 
-
-<div class="image-container">
+<div class="panel-body">
     <div class="overlay">
         {% thumbnail image.color_image "200x200" crop="center" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
@@ -12,5 +16,22 @@
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
     {% endthumbnail %}
 </div>
-<h3>{{ image.title }}</h3>
-<p class="emph">Created at: {{ image.created }}</p>
+
+<div class="panel-footer">
+    <div class="text">
+        <img class="pull-left icon-chevron-right" width="24" height="24"
+                 src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
+        <span>{{ image.comment_set.count }}</span>
+    </div>
+    <div class="text">
+        <img class="pull-left icon-chevron-right" width="24" height="24"
+             src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
+        <span>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
+    </div>
+    {% if image.author == request.user %}
+    <form method="post" action="{% url 'delete' pk=image.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete" />
+    </form>
+    {% endif %}
+</div>
