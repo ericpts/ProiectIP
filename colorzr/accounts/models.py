@@ -26,6 +26,9 @@ class Profile(models.Model):
             return self.avatar.url
         return static("img/default-avatar.jpg")
 
+    def follower_count(self):
+        return len(Follow.objects.followers(self.user))
+
     def __str__(self):
         return self.user.username
 

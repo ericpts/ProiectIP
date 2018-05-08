@@ -11,8 +11,14 @@
 
     <p> {{ user.get_full_name }} joined colorzr on {{ user.date_joined }} </p>
 
-
     <a href="{% url 'album' username=user.username %}"> See his album </a>
+    <div class="text">
+        <span>{{ user.profile.follower_count }} follower(s)</span>
+        {% if following %}
+         | <string>Following</string>
+        {% endif %}
+    </div>
+
     {% if following %}
     <form method="post" action="{% url 'unfollow'%}">
         {% csrf_token %}
