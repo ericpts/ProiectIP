@@ -22,8 +22,8 @@ def ftemp() -> Path:
 
 
 def colorize_py_file() -> Path:
-    return (Path(
-        __file__).resolve().parent.parent.parent / 'extern' / 'colorization' / 'colorization' / 'colorize.py').resolve()
+    return (Path(__file__).resolve().parent.parent.parent / 'extern' /
+            'colorization' / 'colorization' / 'colorize.py').resolve()
 
 
 def to_bw(src_img: Image) -> Image:
@@ -39,12 +39,16 @@ def to_color(src_img: Image) -> Image:
         with ftemp() as img_out:
             src_img.save(str(img_in))
 
-            p = subprocess.run(['python3', str(colorize_py_file()),
-                                '-img_in', str(img_in),
-                                '-img_out', str(img_out)],
-                               cwd=str(colorize_py_file().parent.parent),
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE)
+            p = subprocess.run(
+                [
+                    'python3',
+                    str(colorize_py_file()), '-img_in',
+                    str(img_in), '-img_out',
+                    str(img_out)
+                ],
+                cwd=str(colorize_py_file().parent.parent),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE)
 
             if p.returncode != 0:
                 print(p.stdout)
@@ -59,8 +63,10 @@ def to_color(src_img: Image) -> Image:
 # Test the script as a standalone CLI file.
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('Image colorizer.')
-    parser.add_argument('-i', '--input_image', type=str, help='Input image.', required=True)
-    parser.add_argument('-o', '--output_image', type=str, help='Output image.', required=True)
+    parser.add_argument(
+        '-i', '--input_image', type=str, help='Input image.', required=True)
+    parser.add_argument(
+        '-o', '--output_image', type=str, help='Output image.', required=True)
 
     args = parser.parse_args()
 

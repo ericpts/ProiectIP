@@ -7,19 +7,11 @@ from .models import Profile
 class RegisterForm(UserCreationForm):
     # Extra controls
     first_name = forms.CharField(
-        max_length=30,
-        required=False,
-        help_text='Optional.'
-    )
+        max_length=30, required=False, help_text='Optional.')
     last_name = forms.CharField(
-        max_length=30,
-        required=False,
-        help_text='Optional.'
-    )
+        max_length=30, required=False, help_text='Optional.')
     email = forms.EmailField(
-        max_length=254,
-        help_text='Required. Inform a valid email address.'
-    )
+        max_length=254, help_text='Required. Inform a valid email address.')
 
     class Meta:
         model = User
@@ -36,11 +28,16 @@ class RegisterForm(UserCreationForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name',)
+        fields = (
+            'first_name',
+            'last_name',
+        )
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'avatar',)
-
+        fields = (
+            'bio',
+            'avatar',
+        )

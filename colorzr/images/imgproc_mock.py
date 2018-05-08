@@ -9,4 +9,5 @@ def to_bw(src_img: PIL.Image.Image) -> PIL.Image.Image:
 
 def to_color(src_img: PIL.Image.Image) -> PIL.Image.Image:
     """ Colorize the given black and white image. """
-    return PIL.ImageOps.colorize(PIL.ImageOps.grayscale(src_img), "#000099", "#99CCFF")
+    return PIL.ImageOps.colorize(
+        PIL.ImageOps.grayscale(src_img), "#000099", "#99CCFF")

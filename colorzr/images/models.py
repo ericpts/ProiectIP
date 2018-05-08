@@ -34,4 +34,4 @@ class ImageConversion(models.Model):
         return pil_to_model(bw), pil_to_model(color)
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('created', )

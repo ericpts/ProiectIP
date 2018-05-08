@@ -46,11 +46,15 @@ class ChangeProfileView(LoginRequiredMixin, View):
         user_form = forms.UserForm(instance=request.user)
         profile_form = forms.ProfileForm(instance=request.user.profile)
 
-        return render(request, self.template_name, {'user_form': user_form, 'profile_form': profile_form})
+        return render(request, self.template_name, {
+            'user_form': user_form,
+            'profile_form': profile_form
+        })
 
     def post(self, request, *args, **kwargs):
         user_form = forms.UserForm(request.POST, instance=request.user)
-        profile_form = forms.ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = forms.ProfileForm(
+            request.POST, request.FILES, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
