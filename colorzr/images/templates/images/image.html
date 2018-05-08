@@ -39,7 +39,7 @@
     {% if controls_enabled %}
     <form method="post" action="{% url 'delete' pk=image.pk %}">
         {% csrf_token %}
-        <input type="submit" value="Delete" />
+        <button class="btn btn-primary" type="submit">Delete</button>
     </form>
     {% endif %}
 </div>

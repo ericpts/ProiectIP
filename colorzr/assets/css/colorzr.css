@@ -1164,3 +1164,7 @@ img.align-photo-middle {
     display: flex;
     height: 500px;
 }
+
+.row-with-margins {
+    margin: 15px;
+}
