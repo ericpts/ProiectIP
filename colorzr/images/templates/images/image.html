@@ -28,12 +28,12 @@
 
 <div class="panel-footer">
     <div class="text">
-        <img class="pull-left icon-chevron-right" width="24" height="24"
+        <img class="icon-chevron-right" width="24" height="24"
                  src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
         <span>{{ image.comment_set.count }}</span>
     </div>
     <div class="text">
-        <img class="pull-left icon-chevron-right" width="24" height="24"
+        <img class="icon-chevron-right" width="24" height="24"
              src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
         <span>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
     </div>
