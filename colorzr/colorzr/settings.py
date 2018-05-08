@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'images.apps.ImagesConfig',
     'accounts',
     'bootstrap3',
+
+    # Plugin for generating image thumbnails.
+    'sorl.thumbnail',
 ]
 
 REST_FRAMEWORK = {

@@ -8,3 +8,4 @@ djoser
 django-bootstrap3
 scikit-image
 yapf
+sorl-thumbnail

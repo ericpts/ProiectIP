@@ -5,20 +5,13 @@
 
 {% block body_content %}
 <div class="container">
-    <h1>Album</h1>
+    <h2>Album</h2>
     <a href="{% url 'upload' %}" cls="btn btn-default btn-block" >+ Add new</a>
     <ul class="list-group">
     {% for image in image_list %}
         <li class="list-group-item">
             <div class="container">
-                <div class="image-container">
-                    <div class="overlay">
-                        <img src="{{ image.color_image.url }}" />
-                    </div>
-                    <img src="{{ image.bw_image.url }}" />
-                </div>
-                <h3>{{ image.title }}</h3>
-                <p class="emph">Created at: {{ image.created }}</p>
+                {% include "images/image.html" %}
                 {% if image.author == request.user %}
                 <form method="post" action="{% url 'delete' pk=image.pk %}">
                     {% csrf_token %}

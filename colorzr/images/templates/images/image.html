@@ -1,0 +1,16 @@
+<!-- Template used to render individual images. -->
+{% load thumbnail %}
+
+
+<div class="image-container">
+    <div class="overlay">
+        {% thumbnail image.color_image "200x200" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+        {% endthumbnail %}
+    </div>
+    {% thumbnail image.bw_image "200x200" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+    {% endthumbnail %}
+</div>
+<h3>{{ image.title }}</h3>
+<p class="emph">Created at: {{ image.created }}</p>
