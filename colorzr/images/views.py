@@ -1,6 +1,7 @@
 import random
 import uuid
 
+from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -15,7 +16,7 @@ from . import forms
 from . import models
 
 from social.models import Rating, Comment
-from social.forms import CommentAddForm
+from .forms import CommentAddForm
 
 
 class ImageCreate(LoginRequiredMixin, generic.FormView):
@@ -93,10 +94,31 @@ class LatestView(generic.TemplateView):
     def get_queryset(self):
         return models.ImageConversion.objects.order_by('-created')
 
+
 class ImageDetailView(generic.DetailView):
     template_name = 'images/detail.html'
     model = models.ImageConversion
     context_object_name = 'image'
+
+    def get_context_data(self, **kwargs):
+        kwargs['comment_form'] = forms.CommentAddForm
+
+        return super().get_context_data(**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        form = forms.CommentAddForm(request.POST)
+        if form.is_valid():
+            image_pk = self.kwargs['pk']
+            image = get_object_or_404(models.ImageConversion, pk=image_pk)
+
+            Comment.objects.create(
+                author=request.user,
+                image=image,
+                text=form.cleaned_data['text']
+            )
+            messages.success(request, 'Comment posted successfully!')
+        return redirect(request.POST['next'])
+
 
 class ImageRateView(generic.View):
     def post(self, request, *args, **kwargs):
@@ -110,21 +132,3 @@ class ImageRateView(generic.View):
                 defaults={'rating': rating},
         )
         return HttpResponse(status=204)
-
-class ImageCommentView(generic.View):
-    def post(self, request, *args, **kwargs):
-        form = CommentAddForm(request.POST)
-
-        import pdb
-        pdb.set_trace()
-
-        image_pk = self.kwargs['pk']
-        image = get_object_or_404(models.ImageConversion, pk=image_pk)
-
-        Comment.objects.create(
-                author=request.user,
-                image=image,
-                text=form.cleaned_data['content']
-        )
-
-        return redirect(request.POST['next'])

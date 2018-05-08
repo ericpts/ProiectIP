@@ -12,11 +12,10 @@
 <div class="panel-body">
     <div class="overlay">
         <a href="{% url 'image_detail' pk=image.pk %}">
-        {% thumbnail image.color_image "200x200" crop="center" as color_thumb %}
-        {% thumbnail image.bw_image "200x200" crop="center" as bw_thumb %}
+        {% thumbnail image.color_image "256x256" crop="center" as color_thumb %}
+        {% thumbnail image.bw_image "256x256" crop="center" as bw_thumb %}
             <img src="{{ color_thumb.url }}"
-                 width="{{ color_thumb.width }}"
-                 height="{{ color_thumb.height }}"
+                 style="width: 100%; height: auto;"
                  onmouseover="this.src='{{bw_thumb.url}}';"
                  onmouseout="this.src='{{color_thumb.url}}';"
             />

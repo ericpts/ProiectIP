@@ -76,14 +76,20 @@ $(".rating").starRating({
     <h2> Comments </h2>
 
     {% for comment in image.comment_set.all %}
-        {% include "accounts/thumbnail_profile.html" with user=comment.author  %}
-        <p> {{comment.text}} </p>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {% include "accounts/thumbnail_profile.html" with user=comment.author  %}
+            <small class="text-secondary pull-right">{{ comment.created|date:"M j" }}</small>
+        </div>
+        <div class="panel-body">
+            <strong> {{comment.text}} </strong>
+        </div>
+    </div>
     {% endfor %}
 
-    <form method="post" action="{% url 'image_comment' pk=image.pk %}">
+    <form method="post">
         {% csrf_token %}
-
-        <textarea name="content" style="display: block; width: 100%;"></textarea>
+        {% bootstrap_form comment_form %}
         <input type="hidden" name="next" value="{{ request.get_full_path }}" />
         <button type="submit" class="btn btn-primary"> Post </button>
     </form>
