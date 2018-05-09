@@ -52,7 +52,7 @@ function adjust_makefiles() {
     sed -i "s/python3.5/python3.4/g" Makefile.config
 
     # Use python3.4, not 3.5.
-    sed -i "s/boost_python3/boost_python-py36/g" Makefile.config
+    sed -i "s/boost_python3/boost_python-py34/g" Makefile.config
 
     # Disable python2.
     sed -i "/python2/s/^/# /g" Makefile.config
