@@ -10,3 +10,5 @@ scikit-image
 yapf
 sorl-thumbnail
 git+git://github.com/adamyala/django-friendship.git@django2.0
+coverage
+django-nose

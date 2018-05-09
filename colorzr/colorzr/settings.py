@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'friendship',
     'social',
-
+    'django_nose',
     # Plugin for generating image thumbnails.
     'sorl.thumbnail',
 ]
@@ -145,3 +145,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 THUMBNAIL_DEBUG = True
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=accounts,images',
+]
