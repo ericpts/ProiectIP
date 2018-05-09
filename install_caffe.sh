@@ -22,11 +22,10 @@ function install_system_deps() {
     # BLAS -- for better CPU performance
     sudo apt install -y libatlas-base-dev libblas-dev libopenblas-dev
 
-
-
     # Python -- It comes preinstalled on Ubuntu 14.04
     # Required if you want to use Python wrappers for Caffe
-    sudo apt install -y python-dev python3-dev
+    sudo apt install -y python-dev python3-dev libpython3-dev libpython2.7-dev
+
 
     # Remaining dependencies
     sudo apt install -y libgflags-dev libgoogle-glog-dev liblmdb-dev
