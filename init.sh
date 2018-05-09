@@ -24,5 +24,5 @@ function init_python_requirements() {
 
 
 init_submodules
-init_colorization
 init_python_requirements
+init_colorization
