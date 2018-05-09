@@ -83,12 +83,12 @@ function build_caffe() {
 
     # Finally, build the library with all processors.
     # The computer will have all its resources hogged during this process.
-    make all -j$(nproc)
+    make all
 
     # Also build the python extensions.
-    make pycaffe -j$(nproc)
+    make pycaffe
 
-    make distribute -j$(nproc)
+    make distribute
 
     popd
 }
