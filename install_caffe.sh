@@ -63,7 +63,7 @@ function adjust_makefiles() {
     sed -i "s/hdf5/hdf5_serial/g" Makefile
 
     # Add opencv_imgproc as a library dep.
-    # sed -i "/opencv_imgproc/s/$/ opencv_imgcodecs/g" Makefile
+    sed -i "/opencv_imgproc/s/$/ opencv_imgcodecs/g" Makefile
 }
 
 function build_caffe() {
