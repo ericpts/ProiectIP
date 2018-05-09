@@ -24,7 +24,7 @@ function install_system_deps() {
 
     # Python -- It comes preinstalled on Ubuntu 14.04
     # Required if you want to use Python wrappers for Caffe
-    sudo apt install -y python-dev libpython2.7-dev python3.4-dev libpython3.4-dev
+    sudo apt install -y python-dev libpython2.7-dev python3.6-dev libpython3.6-dev
 
 
     # Remaining dependencies
@@ -48,11 +48,11 @@ function adjust_makefiles() {
     # Enable python3.
     sed -i "/python3/s/^# //g" Makefile.config
 
-    # Use python3.4, not 3.5.
-    sed -i "s/python3.5/python3.4/g" Makefile.config
+    # Use python3.6, not 3.5.
+    sed -i "s/python3.5/python3.6/g" Makefile.config
 
-    # Use python3.4, not 3.5.
-    sed -i "s/boost_python3/boost_python-py34/g" Makefile.config
+    # Use python3.6, not 3.5.
+    sed -i "s/boost_python3/boost_python-py36/g" Makefile.config
 
     # Disable python2.
     sed -i "/python2/s/^/# /g" Makefile.config
@@ -100,7 +100,7 @@ function install_caffe() {
     pushd caffe
 
     # Since no install target is provided, we have to copy the files manually.
-    sudo cp -r distribute/python/caffe/ /usr/local/lib/python3.4/dist-packages/
+    sudo cp -r distribute/python/caffe/ /usr/local/lib/python3.6/dist-packages/
     sudo cp build/lib/libcaffe.so* /usr/lib
 
     popd
