@@ -1,8 +1,7 @@
 *.pyc
 __pycache__
 extern/cifar/data
+extern/caffe/
 .vscode
 colorzr/media/
 .idea/
-caffe/
-

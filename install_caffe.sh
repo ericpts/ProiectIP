@@ -107,7 +107,10 @@ function install_caffe() {
     popd
 }
 
+pushd extern
 
 install_system_deps
 build_caffe
 install_caffe
+
+popd
