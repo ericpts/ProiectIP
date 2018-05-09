@@ -1,5 +1,7 @@
 # ProiectIP
 
+<img src="https://circleci.com/gh/ericpts/ProiectIP.svg?style=shield&circle-token=:circle-token"/>
+
 Repository for the Software Engineering university project.
 
 ## Usage
