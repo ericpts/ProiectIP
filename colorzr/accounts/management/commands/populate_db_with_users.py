@@ -29,13 +29,12 @@ class Command(BaseCommand):
         for i in range(0, length):
             min_size = min(len(users_data), len(first_names_data), len(last_names_data))
             pos = randint(0, min_size - 1)
-
-            user = User(username=users_data[pos], 
+ 
+            try:
+                User.objects.create_user(username=users_data[pos], 
                         password='gogo1234', 
                         first_name=first_names_data[pos],
                         last_name=last_names_data[pos])
-            try:
-                user.save()
             except Exception:
                 print('Could not create user {}'.format(users_data[pos]))
             else:
@@ -46,6 +45,7 @@ class Command(BaseCommand):
             first_names_data.pop(pos)
             last_names_data.pop(pos)
 
+    
 
     def add_arguments(self, parser):
         # Positional arguments
