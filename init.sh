@@ -15,6 +15,7 @@ function init_colorization() {
 }
 
 function init_python_requirements() {
+    sudo apt install python3-pip python-pip
     sudo pip3 install -r requirements.txt
 
     # Debian only, for now.
