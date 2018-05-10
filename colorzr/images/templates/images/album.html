@@ -5,7 +5,16 @@
 {% block title_tag %}Album | {{ block.super }}{% endblock %}
 
 {% block body_content %}
+<div class="container">
+    {% if is_own %}
+        <h2>My Album</h2>
+        <a href="{% url 'upload' %}" class="btn btn-primary">+ Add new photo</a>
+    {% else %}
+        <h2>@{{ author.username }}'s Album</h2>
+    {% endif %}
 
-{% include "images/image_set.html" with heading='My album' %}
+    <hr>
+    {% include "images/image_set.html" with controls_enabled=is_own %}
+</div>
 
 {% endblock %}

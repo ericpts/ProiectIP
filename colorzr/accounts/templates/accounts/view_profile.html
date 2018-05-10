@@ -17,35 +17,77 @@
     <hr/>
 
 
-    <img src="{{ user.profile.avatar_url_or_default }}" class="img-rounded" width=256 height=256 alt="avatar"/>
+    <div class="row panel">
+        <div class="panel-body">
+            <div class="col col-xs-6 col-md-5">
+                <img src="{{ user.profile.avatar_url_or_default }}" style="width: 100%" class="img-rounded"/>
+            </div>
+            <div class="col-xs-6 col-md-7">
+                <h3> {{ user.get_full_name }} </h3>
+                <small class="text-info"> joined colorzr on {{ user.date_joined|date:"M j, Y" }} </small>
 
-    <p> {{ user.get_full_name }} </p>
-    <p> joined colorzr on {{ user.date_joined }} </p>
+                <div style="margin: 25px 0px">
+                    {% if user.profile.bio %}
+                    <p>{{ user.profile.bio }}</p>
+                    {% endif %}
+                </div>
 
-    <a href="{% url 'album' username=user.username %}"> See his album </a>
-    <div class="text">
-        <span>{{ user.profile.follower_count }} follower(s)</span>
-        {% if following %}
-         | <string>Following</string>
-        {% endif %}
+                <div class="text text-primary">
+                    <span>{{ user.profile.follower_count }} follower(s)</span>
+                    {% if following %}
+                     | <string>Following</string>
+                    {% endif %}
+                </div>
+                <div class="image_container">
+                    {% for follower in follower_list %}
+                        {% include "accounts/thumbnail_profile.html" with user=follower hide_username=True %}
+                    {% endfor %}
+                </div>
+
+                <br />
+
+                {% if user != request.user %}
+                {% if following %}
+                <form method="post" action="{% url 'unfollow'%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="username" value="{{ user.username }}" />
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                    <input type="submit" class="btn btn-primary" value="- Unfollow"/>
+                </form>
+                {% else %}
+                <form method="post" action="{% url 'follow'%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="username" value="{{ user.username }}" />
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                    <input type="submit" class="btn btn-primary" value="+ Follow" />
+                </form>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 
-    {% if user != request.user %}
-    {% if following %}
-    <form method="post" action="{% url 'unfollow'%}">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.username }}" />
-        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
-        <input type="submit" class="btn btn-primary" value="- Unfollow"/>
-    </form>
+
+
+    <hr>
+    <h4>Album</h4>
+    {% if image_list %}
+    <p>Showing top {{ image_list|length }} photos</p>
+    <div class="d-block">
+    <ul class="list-group row">
+    {% for image in image_list %}
+        <li class="list-group-item item-container col col-md-3 col-xs-4" style="padding: 0px">
+            <div class="wrapper">
+                {% include "images/image.html" with small=True %}
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+    </div>
+    <a href="{% url 'album' username=user.username %}">See full album</a>
     {% else %}
-    <form method="post" action="{% url 'follow'%}">
-        {% csrf_token %}
-        <input type="hidden" name="username" value="{{ user.username }}" />
-        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
-        <input type="submit" class="btn btn-primary" value="+ Follow" />
-    </form>
+        <h5> No images have been uploaded yet.</h5>
     {% endif %}
-    {% endif %}
+    <br/><br/>
 </div>
 {% endblock %}

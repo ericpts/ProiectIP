@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.views import generic, View
 from friendship.models import Follow
 
+from images.models import ImageConversion
 from . import forms
 
 
@@ -77,6 +78,8 @@ class ViewProfileView(View):
         return render(request, self.template_name, {
             'user': user,
             'following': Follow.objects.follows(request.user, user),
+            'image_list': ImageConversion.objects.filter(author=user),
+            'follower_list': Follow.objects.followers(user)
         })
 
 

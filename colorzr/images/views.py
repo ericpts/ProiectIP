@@ -61,7 +61,8 @@ class AlbumView(LoginRequiredMixin, generic.ListView):
     author = None
 
     def get_context_data(self, **kwargs):
-        kwargs['controls_enabled'] = (self.request.user == self.author)
+        kwargs['author'] = self.author
+        kwargs['is_own'] = self.author == self.request.user
         return super().get_context_data(**kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -85,7 +86,7 @@ class LatestView(generic.TemplateView):
             .filter(author__in=Follow.objects.following(self.request.user))\
             .order_by('-id')[:9]
         kwargs["trending_images"] = models.ImageConversion.objects\
-            .annotate(num_ratings=Count('rating'))\
+            .annotate(num_ratings=Count('rating')+Count('comment'))\
             .order_by('-num_ratings')[:9]
         kwargs["random_images"] = models.ImageConversion.objects.order_by('?')[:9]
 

@@ -1,12 +1,16 @@
 <div class="container">
-    <h4> {{ heading }} </h4>
+    {% if heading %}
+        <h4> {{ heading }} </h4>
+    {% endif %}
     <ul class="list-group grid">
     {% for image in image_list %}
-        <li class="list-group-item col-md-4">
+        <div class="item-container col-md-4" style="padding: 5px">
+        <li class="list-group-item panel" value="">
             <div class="wrapper">
                 {% include "images/image.html" %}
             </div>
         </li>
+        </div>
     {% empty %}
         <h5> No images have been uploaded yet.</h5>
     {% endfor %}

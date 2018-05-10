@@ -5,12 +5,30 @@
 
 {% block body_content %}
 <div class="container">
-  <h1>Upload image</h1>
-  <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      <input type="submit" value="Upload image" class="btn btn-primary btn-block"/>
-  </form>
-
+    <h2>Add an image</h2>
+    <hr>
+    <div class="wrapper">
+        <p>
+            Upload any image using the buttons below, and then click the <strong class="text-primary">Upload</strong> button.
+        </p>
+        <p>
+            The image will be automatically converted into <em>black and white</em> (if not already),
+            and then it will be colored using <span class="text-info">deep learning</span> techniques.
+        </p>
+        <br/>
+        <p class="text-info">
+            The image will be automatically added to <em>your album</em>.
+        </p>
+    </div>
+    <br/>
+    <div class="panel">
+        <div class="panel-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="submit" value="Upload" class="btn btn-primary btn-block"/>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

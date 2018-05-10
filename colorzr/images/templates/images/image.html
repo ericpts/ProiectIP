@@ -2,12 +2,14 @@
 {% load thumbnail %}
 {% load static %}
 
+{% if not small %}
 <div class="panel-heading">
     <h3>{{ image.title }}</h3>
     <p class="emph">Created on {{ image.created }} </p>
     <p>by {% include "accounts/thumbnail_profile.html" with user=image.author %}</p>
 
 </div>
+{% endif %}
 
 <div class="panel-body">
     <div class="overlay">
@@ -25,6 +27,7 @@
     </div>
 </div>
 
+{% if not small %}
 <div class="panel-footer">
     <div class="text">
         <img class="icon-chevron-right" width="24" height="24"
@@ -43,3 +46,4 @@
     </form>
     {% endif %}
 </div>
+{% endif %}
