@@ -2,7 +2,7 @@
 
 <a href="{% url 'view_profile' username=user.username %}">
     <img class="iconos img-rounded" src="{{ user.profile.avatar_url_or_default }}"
-        width="32" height="32" alt="{{ user.username }}" title="{{ user.username }}">
+        style="width: 32px; height: 32px;" alt="{{ user.username }}" title="{{ user.username }}">
     {% if not hide_username %}
     <span class="my-0">{{ user.username }}</span>
     {% endif %}
