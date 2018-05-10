@@ -78,7 +78,7 @@ class ViewProfileView(View):
         return render(request, self.template_name, {
             'user': user,
             'following': Follow.objects.follows(request.user, user),
-            'image_list': ImageConversion.objects.filter(author=user),
+            'image_list': ImageConversion.objects.filter(author=user)[:5],
             'follower_list': Follow.objects.followers(user)
         })
 
