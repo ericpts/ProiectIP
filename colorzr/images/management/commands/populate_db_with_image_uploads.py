@@ -11,9 +11,9 @@ import random
 import os
 
 class Command(BaseCommand):
-    help = 'Populate db with profiles for users'
+    help = 'Populate db with uploads'
 
-    def _create_profiles(self, *args, **options):
+    def _create_uploads(self, *args, **options):
         # load data
         images_dir = (Path(__file__).resolve().parent.parent.parent.parent.parent / 'extern' / 'images' / 'dataset').resolve() 
         books_str = (Path(__file__).resolve().parent.parent / 'data' / 'books.json').resolve()
@@ -55,5 +55,5 @@ class Command(BaseCommand):
         parser.add_argument('no_of_image_uploads', nargs='+', type=int)
 
     def handle(self, *args, **options):
-        self._create_profiles(*args, **options)
+        self._create_uploads(*args, **options)
            

@@ -9,7 +9,7 @@ import random
 import os
 
 class Command(BaseCommand):
-    help = 'Populate db with image uploads'
+    help = 'Populate db with ratings'
 
     def _create_ratings(self, *args, **options):
         users = User.objects.all()
