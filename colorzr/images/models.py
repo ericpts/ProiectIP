@@ -8,7 +8,7 @@ from django.db.models import Avg
 
 import PIL
 
-from .imgproc_mock import to_bw, to_color
+from .imgproc import to_bw, to_color
 
 
 class ImageConversion(models.Model):
