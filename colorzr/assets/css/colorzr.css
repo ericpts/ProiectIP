@@ -20,6 +20,10 @@
 .tim-row{
     margin-bottom: 20px;
 }
+img {
+    width: 100%;
+    height: auto;
+}
 
 .tim-white-buttons {
     background-color: #777777;

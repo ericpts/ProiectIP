@@ -19,40 +19,36 @@
 <br><br>
 
 <div class="container">
-    <div class="homepage-flow-container">
-        <div class="inline-container">
-            <div class="center-container rounded-border">
-                <span style="font-size: 2em;">Log in</span>
-            </div>
+    <div class="row" style="display: flex; align-items: center;">
+        <div class="col col-md-3">
+            <h4>Upload an image</h4>
+            <small class="text-info">Log in and upload an image through our website</small>
+            <img class="img-rounded" src="{% static 'img/photos/wizard-of-oz-bw.jpg' %}">
         </div>
 
-        <div class="inline-container">
-            <div class="center-container">
-                <i class="fa fa-angle-right fa-5x"></i>
-            </div>
+        <div class="col col-md-1">
+            <i class="fa fa-angle-right fa-5x"></i>
         </div>
 
-        <div class="inline-container">
-            <div class="center-container-inverted">
-                <p>Upload your photo</p>
-                <img class="align-photo-middle cut-photo" src="{% static 'img/photos/wizard-of-oz-bw.jpg' %}">
-            </div>
+        <div class="col col-md-4">
+                <h4>Processing...</h4>
+                <small class="text-info">We run the deep network algorithm that tries to colorize the image as well as possible.</small>
+                <img src="{% static 'img/photos/net_diagram.png' %}">
         </div>
 
-        <div class="inline-container">
-            <div class="center-container">
-                <i class="fa fa-angle-right fa-5x"></i>
-            </div>
+        <div class="col col-md-1" style="vertical-align: middle">
+            <i class="fa fa-angle-right fa-5x"></i>
         </div>
 
-        <div class="inline-container">
-            <div class="center-container-inverted">
-                <p>Get a coloured version</p>
-                <img class="align-photo-middle cut-photo" src="{% static 'img/photos/wizard-of-oz-colorized.jpg' %}">
-            </div>
+        <div class="col col-md-3">
+                <h4>See the sesult!</h4>
+                <small class="text-info">In a matter of seconds, get the corresponding colored picture.</small>
+                <img class="img-rounded" src="{% static 'img/photos/wizard-of-oz-colorized.jpg' %}">
         </div>
     </div>
 </div>
+
+<br/>
 
 <div class="section bg-secondary landing-section">
     <div class="container">
