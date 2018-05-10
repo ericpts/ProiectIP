@@ -7,7 +7,7 @@ urlpatterns = [
         views.ImageDelete.as_view(),
         name='delete'),
     url(r'^upload/$', views.ImageCreate.as_view(), name='upload'),
-    url(r'^album/(?P<username>\w{0,50})/$',
+    url(r'^album/(?P<username>[\w\+\.\-_]{0,50})/$',
         views.AlbumView.as_view(),
         name='album'),
     url(r'^album/$', views.AlbumView.as_view(), name='my_album'),

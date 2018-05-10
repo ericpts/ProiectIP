@@ -38,7 +38,7 @@ class Command(BaseCommand):
             try:
                 # take a random comment
                 pos = randint(0, len(fake_news_list) - 1)
-                comment_str = fake_news_list[pos]['title']
+                comment_str = fake_news_list[pos]['title'] if (len(fake_news_list[pos]['title']) > 0) else fake_news_list[pos]['text']
                 fake_news_list.pop(pos)
 
                 # create a record
