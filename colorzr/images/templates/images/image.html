@@ -2,16 +2,16 @@
 {% load thumbnail %}
 {% load static %}
 
+<div class="panel"{% if not small %}style="padding: 10px"{% endif %}>
 {% if not small %}
-<div class="panel-heading">
-    <h3>{{ image.title }}</h3>
-    <p class="emph">Created on {{ image.created }} </p>
+<div class="panel-heading" style="padding-bottom: 0">
+    <small class="text-secondary pull-right">{{ image.created|date:"M j" }}</small>
+    <h4 style="margin-top: 10px">{{ image.title }}</h4>
     <p>by {% include "accounts/thumbnail_profile.html" with user=image.author %}</p>
-
 </div>
 {% endif %}
 
-<div class="panel-body"{% if small %} style="padding: 8px"{% endif %}>
+<div class="panel-body" style="padding: 8px">
     <div class="wrapper conversion-container">
         <a href="{% url 'image_detail' pk=image.pk %}">
         {% thumbnail image.color_image "256x256" crop="center" as color_thumb %}
@@ -27,14 +27,11 @@
 {% if not small %}
 <div class="panel-footer">
     <div class="text">
-        <img class="icon-chevron-right" width="24" height="24"
-                 src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
-        <span>{{ image.comment_set.count }}</span>
-    </div>
-    <div class="text">
-        <img class="icon-chevron-right" width="24" height="24"
-             src="{% static 'img/icons/Comments-48.png' %}" alt="comments"/>
-        <span>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
+        <i class="material-icons align-middle" style="vertical-align: middle">comment</i>
+        <span style="vertical-align: middle">{{ image.comment_set.count }}</span>
+        <span class="text-muted"> | </span>
+        <i class="material-icons" style="vertical-align: middle">star</i>
+        <span style="vertical-align: middle">{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
     </div>
     {% if controls_enabled %}
     <form method="post" action="{% url 'delete' pk=image.pk %}">
@@ -44,3 +41,4 @@
     {% endif %}
 </div>
 {% endif %}
+</div>

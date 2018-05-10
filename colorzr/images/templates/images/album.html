@@ -6,13 +6,11 @@
 
 {% block body_content %}
 <div class="container">
+    <h2>{% if is_own %}My Album{% else %}@{{ author.username }}'s Album{% endif %}</h2>
+    <h5 class="text-primary">{{ image_list|length }} image(s)</h5>
     {% if is_own %}
-        <h2>My Album</h2>
-        <a href="{% url 'upload' %}" class="btn btn-primary">+ Add new photo</a>
-    {% else %}
-        <h2>@{{ author.username }}'s Album</h2>
+    <a href="{% url 'upload' %}" class="btn btn-primary">+ Add new image</a>
     {% endif %}
-
     <hr>
     {% include "images/image_set.html" with controls_enabled=is_own %}
 </div>

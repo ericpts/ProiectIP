@@ -7,15 +7,28 @@
 <div class="container">
     <h2>Edit Profile</h2>
     <hr/>
-    <img src="{{ user.profile.avatar_url_or_default }}" class="img-rounded"
-         style="width: 128px; height: 128px;" alt="avatar"/>
-    <h3>@{{ request.user.username }}</h3>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form user_form %}
-        {% bootstrap_form profile_form %}
-        <input type="submit" value="Save changes" class="btn btn-primary btn-block"/>
-        <input type="button" value="Discard changes" class="btn btn-secondary btn-block" onClick="javascript:history.go(-1);">
-    </form>
+    <div class="row" style="display: flex; align-items: flex-end;">
+        <div class="col col-xs-4 col-md-3" style="position: relative;">
+        <img src="{{ user.profile.avatar_url_or_default }}"
+             class="img-rounded" style="width: 100%; height: auto; position: relative;" alt="avatar"/>
+        </div>
+        <div class="col col-xs-8 col-md-9" style="height: 100%">
+            <h3>@{{ request.user.username }}</h3>
+        </div>
+    </div>
+    <br/>
+    <div class="panel">
+        <div class="panel-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form user_form %}
+                {% bootstrap_form profile_form %}
+                <input type="submit" value="Save changes" class="btn btn-primary btn-block"/>
+            </form>
+        </div>
+    </div>
+
+    <button class="btn btn-secondary btn-block" onClick="javascript:history.go(-1);">Discard changes</button>
+
 </div>
 {% endblock %}
