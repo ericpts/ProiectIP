@@ -20,6 +20,7 @@ Picture {{ image.title }} | {{ block.super }}
 
 
     {% if image.author == request.user %}
+    <br/>
     <form method="post" action="{% url 'delete' pk=image.pk %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete</button>
