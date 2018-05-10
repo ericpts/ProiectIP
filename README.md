@@ -43,12 +43,21 @@ Comments and ratings are all tied to a particular image, and displayed in that i
 
 
 ## References
-Login Form / Page: https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
+Login Form / Page: 
 
-Register Form / Page: https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
+https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
 
-Profile: https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
+Register Form / Page: 
 
+https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
+
+Profile: 
+
+https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
+
+Colorization neural network:
+
+http://richzhang.github.io/colorization/
 ## Members
 
 - Eric P. Stavarache
