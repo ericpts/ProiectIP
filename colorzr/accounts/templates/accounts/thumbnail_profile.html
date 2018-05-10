@@ -1,6 +1,6 @@
 <!-- Template used to a thumbnail view of a user's profile. -->
 
-<a href="{% url 'view_profile' username=user.username %}">
+<a href="{% url 'view_profile' username=user.username %}" style="margin-top: 0px; margin-bottom: 0px;">
     <img class="iconos img-rounded" src="{{ user.profile.avatar_url_or_default }}"
         style="width: 32px; height: 32px;" alt="{{ user.username }}" title="{{ user.username }}">
     {% if not hide_username %}
