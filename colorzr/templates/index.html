@@ -20,7 +20,7 @@
 
 <div class="container">
     <div class="row" style="display: flex; align-items: center;">
-        <div class="col col-md-3">
+        <div class="col col-md-3" style="align-self: stretch">
             <h4>Upload an image</h4>
             <small class="text-info">Log in and upload an image through our website</small>
             <img class="img-rounded" src="{% static 'img/photos/example-bw.jpg' %}">
@@ -30,7 +30,7 @@
             <i class="fa fa-angle-right fa-5x"></i>
         </div>
 
-        <div class="col col-md-4">
+        <div class="col col-md-4" style="align-self: stretch">
                 <h4>Processing...</h4>
                 <small class="text-info">We run the deep network algorithm that tries to colorize the image as well as possible.</small>
                 <img src="{% static 'img/photos/net_diagram.png' %}">
@@ -40,7 +40,7 @@
             <i class="fa fa-angle-right fa-5x"></i>
         </div>
 
-        <div class="col col-md-3">
+        <div class="col col-md-3" style="align-self: stretch">
                 <h4>See the sesult!</h4>
                 <small class="text-info">In a matter of seconds, get the corresponding colored picture.</small>
                 <img class="img-rounded" src="{% static 'img/photos/example-colorized.jpg' %}">
