@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand
-from accounts.models import Profile
 from django.contrib.auth.models import User
 import json
 from pathlib import Path

@@ -22,7 +22,14 @@ function init_python_requirements() {
     ./install_caffe.sh
 }
 
+function init_avatars_population() {
+    pushd extern/avatars
+    python3 download_avatars_kaggle_dataset.py
+    popd
+}
+
 
 init_submodules
 init_python_requirements
 init_colorization
+init_avatars_population
