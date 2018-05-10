@@ -19,13 +19,20 @@ Picture {{ image.title }} | {{ block.super }}
     <p>by {% include "accounts/thumbnail_profile.html" with user=image.author %}</p>
 
 
-    {% if image.author == request.user %}
+    {% if image.author == request.user %}   
     <br/>
     <form method="post" action="{% url 'delete' pk=image.pk %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
     {% endif %}
+
+    <br/>
+    <form method="get" action="{% url 'image_download' pk=image.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Download colored image</button>
+    </form>
+
 
     <hr>
 

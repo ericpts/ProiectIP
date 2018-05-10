@@ -1,6 +1,9 @@
 import random
 import uuid
+import mimetypes
+import os
 
+from wsgiref.util import FileWrapper
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,13 +14,13 @@ from django.urls import reverse_lazy
 from django.views import generic
 from friendship.models import Follow
 from django.http import HttpResponse
+from PIL import Image
 
 from . import forms
 from . import models
 
 from social.models import Rating, Comment
 from .forms import CommentAddForm
-
 
 class ImageCreate(LoginRequiredMixin, generic.FormView):
     form_class = forms.ImageAddForm
@@ -134,3 +137,17 @@ class ImageRateView(generic.View):
                 defaults={'rating': rating},
         )
         return HttpResponse(status=204)
+
+class ImageDownload(generic.View):
+    def get(self, request, *args, **kwargs):
+        image_pk = kwargs['pk']
+        img = get_object_or_404(
+                models.ImageConversion, pk=image_pk)
+        print('path: {}'.format(img.color_image.file))
+        print(os.path.dirname(os.path.abspath(__file__)))
+        wrapper      = FileWrapper(open(str(img.color_image.file), 'rb'))  # img.file returns full path to the image
+        content_type = mimetypes.guess_type(img.color_image.url)[0]  # Use mimetypes to get file type
+        response     = HttpResponse(wrapper, content_type=content_type)  
+        response['Content-Length']      = os.path.getsize(str(img.color_image.file))    
+        response['Content-Disposition'] = "attachment; filename=%s" %  img.color_image.name
+        return response
