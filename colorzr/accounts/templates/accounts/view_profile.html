@@ -74,15 +74,7 @@
     {% if image_list %}
     <p>Showing top {{ image_list|length }} photos</p>
     <div class="d-block">
-    <ul class="list-group row">
-    {% for image in image_list %}
-        <li class="list-group-item item-container col col-md-3 col-xs-4" style="padding: 0px">
-            <div class="wrapper">
-                {% include "images/image.html" with small=True %}
-            </div>
-        </li>
-    {% endfor %}
-    </ul>
+        {% include "images/image_set.html" with small=True %}
     </div>
     <a href="{% url 'album' username=user.username %}">See full album</a>
     {% else %}

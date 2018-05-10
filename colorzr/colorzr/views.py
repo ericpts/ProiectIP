@@ -12,3 +12,8 @@ class HomeView(TemplateView):
         if request.user.is_authenticated:
             return redirect(reverse_lazy("latest"))
         return super().dispatch(request, args, kwargs)
+
+    def get_context_data(self, **kwargs):
+        kwargs['image_list'] = ImageConversion.objects.order_by('?')[:6]
+
+        return super().get_context_data(**kwargs)

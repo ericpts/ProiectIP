@@ -36,6 +36,30 @@
     display: flex;
     align-items: center;
 }
+
+.conversion-container {
+    position: relative;
+}
+.conversion-back-img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.conversion-overlay-img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.conversion-overlay-img:hover {
+    opacity: 1;
+}
+
 .tim-typo{
     padding-left: 25%;
     margin-bottom: 40px;

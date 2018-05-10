@@ -2,82 +2,93 @@
 {% load static from staticfiles %}
 
 {% block body_content %}
-			{% if user.is_authenticated %}
-			<!-- TODO ericpts: populate homepage when user is logged in-->
-			{% else %}
-				<div class="landing-header">
-					<div class="container">
-						<div class="motto">
-							<h1 class="title-uppercase">COLORZR</h1>
-							<h3>Colorize your memories</h3>
-							<h6>Using novel deep-learning techniques to colorize black-white photos</h6>
-						</div>
-					</div>
-				</div>
+<div class="landing-header">
+    <div class="container">
+        <div class="motto">
+            <h1 class="title-uppercase">COLORZR</h1>
+            <h3>Colorize your memories</h3>
+            <h6>Using novel deep-learning techniques to colorize black-white photos</h6>
+        </div>
+    </div>
+</div>
 
-				<div class="container">
-					<h2 class="align-header-center">How it works!</h2>
-				</div>
-				<br>
-				<br>
+<div class="container">
+    <h2 class="align-header-center">How it works!</h2>
+</div>
 
-				<div class="container">
-					<div class="homepage-flow-container">
-						<div class="inline-container">
-							<div class="center-container rounded-border">
-								<span style="font-size: 2em;">Log in</span>
-							</div>														
-						</div>
+<br><br>
 
-						<div class="inline-container">
-								<div class="center-container">
-									<i class="fa fa-angle-right fa-5x"></i>
-								</div>														
-						</div>					
+<div class="container">
+    <div class="homepage-flow-container">
+        <div class="inline-container">
+            <div class="center-container rounded-border">
+                <span style="font-size: 2em;">Log in</span>
+            </div>
+        </div>
 
-						<div class="inline-container">
-								<div class="center-container-inverted">
-									<p>Upload your photo</p>
-									<img class="align-photo-middle cut-photo" src="{% static 'img/photos/wizard-of-oz-bw.jpg' %}">
-								</div>														
-						</div>
-						
-						<div class="inline-container">
-								<div class="center-container">
-									<i class="fa fa-angle-right fa-5x"></i>
-								</div>														
-						</div>						
-					
-						<div class="inline-container">
-								<div class="center-container-inverted">
-									<p>Get a coloured version</p>
-									<img class="align-photo-middle cut-photo" src="{% static 'img/photos/wizard-of-oz-colorized.jpg' %}">
-								</div>														
-						</div>					
-				</div>
-			</div>
+        <div class="inline-container">
+            <div class="center-container">
+                <i class="fa fa-angle-right fa-5x"></i>
+            </div>
+        </div>
 
-				<div class="section section-light-brown landing-section">
-						<div class="container">
-							<div class="row">
-								<h3 class="align-header-center">Features!</h3>
-								<div class="col-md-4 column">
-									<h4>Newsfeed</h4>
-									<p>You can see all your friends photos and albums! Don't miss any of it!</p>
-									<a class="btn btn-danger btn-simple" href="/latest">Newsfeed!</a>
-								</div>
-								<div class="col-md-4 column">
-									<h4>Image Upload</h4>
-									<p>Take all your old and dirty photos, upload and scan them through our system and voila! You get yourself a nice chunck of live colours!</p>
-									<a class="btn btn-danger btn-simple" href="/upload">Upload image</a>
-								</div>
-								<div class="col-md-4 column">
-									<h4>Social media</h4>
-									<p>Follow your friends and give them a like or comment! Keep the interest alive and make them share more photos with you!</p>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-				{% endif %}
+        <div class="inline-container">
+            <div class="center-container-inverted">
+                <p>Upload your photo</p>
+                <img class="align-photo-middle cut-photo" src="{% static 'img/photos/wizard-of-oz-bw.jpg' %}">
+            </div>
+        </div>
+
+        <div class="inline-container">
+            <div class="center-container">
+                <i class="fa fa-angle-right fa-5x"></i>
+            </div>
+        </div>
+
+        <div class="inline-container">
+            <div class="center-container-inverted">
+                <p>Get a coloured version</p>
+                <img class="align-photo-middle cut-photo" src="{% static 'img/photos/wizard-of-oz-colorized.jpg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section bg-secondary landing-section">
+    <div class="container">
+        <div class="row">
+            <h3 class="align-header-center">Features!</h3>
+            <div class="col-md-4 column">
+                <h4>Newsfeed</h4>
+                <p>You can see all your friends photos and albums! Don't miss any of it!</p>
+            </div>
+            <div class="col-md-4 column">
+                <h4>Image Upload</h4>
+                <p>Take all your old and dirty photos, upload and scan them through our system and voila! You get yourself a nice chunck of live colours!</p>
+            </div>
+            <div class="col-md-4 column">
+                <h4>Social</h4>
+                <p>Follow your friends and give them a like or comment! Keep the interest alive and make them share more photos with you!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="align-header-center">See it in action!</h2>
+    {% include "images/image_set.html" with small=True %}
+    <h5 class="align-header-center">These are actual images uploaded by our registered users at colorzr</h5>
+</div>
+
+<br/>
+
+<div class="bg-primary">
+    <br/>
+    <div class="container text-center">
+        <h2 class="align-header-center">What are you waiting for?</h2>
+        <a href="{% url 'register' %}" class="btn btn-lg btn-success">Sign up</a>
+        <h5 class="align-header-center"> It's quick and free (we promise)!</h5>
+    </div>
+    <br/>
+</div>
 {% endblock %}

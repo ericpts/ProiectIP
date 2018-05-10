@@ -11,16 +11,13 @@
 </div>
 {% endif %}
 
-<div class="panel-body">
-    <div class="overlay">
+<div class="panel-body"{% if small %} style="padding: 8px"{% endif %}>
+    <div class="wrapper conversion-container">
         <a href="{% url 'image_detail' pk=image.pk %}">
         {% thumbnail image.color_image "256x256" crop="center" as color_thumb %}
         {% thumbnail image.bw_image "256x256" crop="center" as bw_thumb %}
-            <img src="{{ color_thumb.url }}"
-                 style="width: 100%; height: auto;"
-                 onmouseover="this.src='{{bw_thumb.url}}';"
-                 onmouseout="this.src='{{color_thumb.url}}';"
-            />
+            <img class="conversion-back-img" src="{{ color_thumb.url }}" />
+            <img class="conversion-overlay-img" src="{{ bw_thumb.url }}" />
         {% endthumbnail %}
         {% endthumbnail %}
         </a>

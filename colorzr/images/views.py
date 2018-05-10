@@ -75,7 +75,7 @@ class AlbumView(LoginRequiredMixin, generic.ListView):
         return models.ImageConversion.objects.filter(author__exact=self.author)
 
 
-class LatestView(generic.TemplateView):
+class LatestView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'images/latest.html'
     model = models.ImageConversion
     context_object_name = 'image_list'
@@ -96,7 +96,7 @@ class LatestView(generic.TemplateView):
         return models.ImageConversion.objects.order_by('-created')
 
 
-class ImageDetailView(generic.DetailView):
+class ImageDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'images/detail.html'
     model = models.ImageConversion
     context_object_name = 'image'

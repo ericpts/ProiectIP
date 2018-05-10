@@ -5,13 +5,19 @@
 
 {% block body_content %}
 <div class="container">
-    <div>
-        <h1>Sign up</h1>
-        <form method="post">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <input type="submit" value="Sign up" class="btn btn-primary btn-block"/>
-        </form>
+    <h2>Sign up</h2>
+    <hr>
+    <div class="panel">
+        <div class="panel-body">
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="submit" value="Sign up" class="btn btn-primary btn-block"/>
+            </form>
+        </div>
     </div>
+    <strong>Already have an account? Here then!</strong>
+    <br/><br/>
+    <a href="{% url 'login' %}" class="btn btn-block">Log in</a>
 </div>
 {% endblock %}
