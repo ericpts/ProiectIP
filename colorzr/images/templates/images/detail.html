@@ -16,43 +16,58 @@ Picture {{ image.title }} | {{ block.super }}
 
 <div class="container">
     <h2> The "{{ image.title }}" </h2>
+    <p>by {% include "accounts/thumbnail_profile.html" with user=image.author %}</p>
 
-    <div class="row">
-        <div class="col col-md-6">
-            <img src={{image.color_image.url}} class="img-responsive"/>
+
+    {% if image.author == request.user %}
+    <form method="post" action="{% url 'delete' pk=image.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    {% endif %}
+
+    <hr>
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col col-sm-6">
+                    <img class="img-rounded" src={{image.color_image.url}} class="img-responsive"/>
+                </div>
+                <div class="col col-sm-6">
+                    <img class="img-rounded" src={{image.bw_image.url}} class="img-responsive"/>
+                </div>
+            </div>
         </div>
-        <div class="col col-md-6">
-            <img src={{image.bw_image.url}} class="img-responsive"/>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <h4>Created on</h4>
+    <div class="panel">
+        <div class="panel-body">
+            <span class="text-primary">{{ image.created }}</span>
         </div>
     </div>
 </div>
-
+</div>
 <!-- Rating related -->
 
 <div class="container">
-    <div class="row">
-        <div class="col col-md-6">
-            <div class="text">
-                <span>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
-            </div>
-            <div class="rating-small">
-            </div>
-        </div>
-        <div class="col col-md-6 text-right">
-
-            {% if image.author == request.user %}
-                <form method="post" action="{% url 'delete' pk=image.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger"> Delete </button>
-                </form>
-            {% endif %}
-
+    <h4>Ratings</h4>
+    <div class="panel">
+        <div class="panel-body">
+            <h5>{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</h5>
+            <div class="rating-large"></div>
         </div>
     </div>
+    <p class="text-info">Leave a rating by interacting with the stars above!</p>
 </div>
 <script>
-$(".rating-small").starRating({
-    starSize: 20,
+$(".rating-large").starRating({
+    starSize: 40,
     useFullStars: true,
     initialRating: {{ image.get_mean_rating }},
     callback: (currentRating, $el) => {
@@ -71,9 +86,9 @@ $(".rating-small").starRating({
 <!-- Comments related -->
 
 
-<div class="container" style="width: 50%;">
+<div class="container">
 
-    <h2> Comments </h2>
+    <h4> Comments </h4>
 
     {% for comment in image.comment_set.all %}
     <div class="panel panel-default">
@@ -85,7 +100,11 @@ $(".rating-small").starRating({
             <strong> {{comment.text}} </strong>
         </div>
     </div>
+    {% empty %}
+    <h5>Nobody has commented on this image (yet).</h5>
     {% endfor %}
+
+    <br/>
 
     <form method="post">
         {% csrf_token %}

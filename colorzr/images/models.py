@@ -23,6 +23,9 @@ class ImageConversion(models.Model):
     def __str__(self):
         return "{0}'s \"{1}\"".format(self.author, self.title)
 
+    class Meta:
+        ordering = ['-created']
+
     @staticmethod
     def convert(image):
         original_image = PIL.Image.open(image)

@@ -20,6 +20,7 @@ class Rating(models.Model):
 
     class Meta:
         unique_together = (('author', 'image'),)
+        ordering = ['-created']
 
     def __str__(self):
         return "{0}* rating to {1}'s {2}".format(self.rating, self.image.author, self.image.title)
@@ -30,6 +31,9 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ForeignKey(ImageConversion, on_delete=models.CASCADE)
     text = models.TextField(max_length=1024)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self):
         return "[{0}]: {1}".format(self.author, self.text)

@@ -5,9 +5,20 @@
 <div class="panel"{% if not small %}style="padding: 10px"{% endif %}>
 {% if not small %}
 <div class="panel-heading" style="padding-bottom: 0">
-    <small class="text-secondary pull-right">{{ image.created|date:"M j" }}</small>
+    <div class="pull-right" style="text-align: right">
+    <small class="text-secondary">{{ image.created|date:"M j" }}</small>
+    {% if controls_enabled %}
+    <br/><br/>
+    <form style="display: inline" class="pull-right" method="post" action="{% url 'delete' pk=image.pk %}">
+        {% csrf_token %}
+        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+    </form>
+    {% endif %}
+</div>
     <h4 style="margin-top: 10px">{{ image.title }}</h4>
     <p>by {% include "accounts/thumbnail_profile.html" with user=image.author %}</p>
+
+
 </div>
 {% endif %}
 
@@ -16,8 +27,8 @@
         <a href="{% url 'image_detail' pk=image.pk %}">
         {% thumbnail image.color_image "256x256" crop="center" as color_thumb %}
         {% thumbnail image.bw_image "256x256" crop="center" as bw_thumb %}
-            <img class="conversion-back-img" src="{{ color_thumb.url }}" />
-            <img class="conversion-overlay-img" src="{{ bw_thumb.url }}" />
+            <img class="conversion-back-img img-rounded" src="{{ color_thumb.url }}" />
+            <img class="conversion-overlay-img img-rounded" src="{{ bw_thumb.url }}" />
         {% endthumbnail %}
         {% endthumbnail %}
         </a>
@@ -32,13 +43,9 @@
         <span class="text-muted"> | </span>
         <i class="material-icons" style="vertical-align: middle">star</i>
         <span style="vertical-align: middle">{{ image.get_mean_rating }} of {{ image.rating_set.count }} rating(s)</span>
-    </div>
-    {% if controls_enabled %}
-    <form method="post" action="{% url 'delete' pk=image.pk %}">
-        {% csrf_token %}
-        <button class="btn btn-primary" type="submit">Delete</button>
-    </form>
-    {% endif %}
+
+
+        </div>
 </div>
 {% endif %}
 </div>

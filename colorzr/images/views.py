@@ -58,6 +58,7 @@ class AlbumView(LoginRequiredMixin, generic.ListView):
     model = models.ImageConversion
     context_object_name = 'image_list'
     paginate_by = 20
+
     author = None
 
     def get_context_data(self, **kwargs):
