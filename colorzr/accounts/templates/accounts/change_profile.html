@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
+{% load thumbnail %}
 
 {% block title_tag %}Login | {{ block.super }}{% endblock %}
 
@@ -9,8 +10,15 @@
     <hr/>
     <div class="row" style="display: flex; align-items: flex-end;">
         <div class="col col-xs-4 col-md-3" style="position: relative;">
-        <img src="{{ user.profile.avatar_url_or_default }}"
-             class="img-rounded" style="width: 100%; height: auto; position: relative;" alt="avatar"/>
+
+            {% if user.profile.avatar %}
+                {% thumbnail user.profile.avatar "512x512" crop="center" as im %}
+                    <img class="conversion-back-img img-rounded" src="{{ im.url }}" />
+                {% endthumbnail %}
+            {% else %}
+                <img class="conversion-back-img img-rounded" src="{{ user.profile.avatar_url_or_default }}" />
+            {% endif %}
+
         </div>
         <div class="col col-xs-8 col-md-9" style="height: 100%">
             <h3>@{{ request.user.username }}</h3>

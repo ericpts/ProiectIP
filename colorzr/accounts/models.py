@@ -1,6 +1,8 @@
 import os
+from pathlib import Path
 
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
 from django.db import models
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
@@ -8,6 +10,8 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from friendship.models import Follow
+
+from colorzr.settings import BASE_DIR
 
 
 def user_directory_path(instance, filename):
@@ -24,6 +28,7 @@ class Profile(models.Model):
         if self.avatar:
             return self.avatar.url
         return static("img/default-avatar.jpg")
+
 
     def follower_count(self):
         return len(Follow.objects.followers(self.user))

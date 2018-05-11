@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% load bootstrap3 %}
 {% load friendshiptags %}
+{% load thumbnail %}
 
 {% block title_tag %} Profile | {{ block.super }}{% endblock %}
 
@@ -20,7 +21,15 @@
     <div class="row panel">
         <div class="panel-body">
             <div class="col col-xs-6 col-md-5">
-                <img src="{{ user.profile.avatar_url_or_default }}" style="width: 100%" class="img-rounded"/>
+
+                {% if user.profile.avatar %}
+                    {% thumbnail user.profile.avatar "512x512" crop="center" as im %}
+                        <img class="conversion-back-img img-rounded" src="{{ im.url }}" />
+                    {% endthumbnail %}
+                {% else %}
+                    <img class="conversion-back-img img-rounded" src="{{ user.profile.avatar_url_or_default }}" />
+                {% endif %}
+
             </div>
             <div class="col-xs-6 col-md-7">
                 <h3> {{ user.get_full_name }} </h3>
