@@ -42,4 +42,4 @@ class ImageConversion(models.Model):
     def get_mean_rating(self):
         if self.rating_set.count() == 0:
             return 0
-        return self.rating_set.aggregate(Avg('rating'))['rating__avg']
+        return format(self.rating_set.aggregate(Avg('rating'))['rating__avg'], '.2f')
