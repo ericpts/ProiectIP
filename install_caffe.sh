@@ -30,7 +30,7 @@ function install_system_deps() {
     sudo apt install -y libgflags-dev libgoogle-glog-dev liblmdb-dev
 
     # Build essentials.
-    sudo apt install build-essential cmake git pkg-config
+    sudo apt install -y build-essential cmake git pkg-config
 }
 
 # Because caffe by default does not build, we need to manually adjust the
