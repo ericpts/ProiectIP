@@ -105,10 +105,18 @@ function install_caffe() {
     popd
 }
 
-pushd extern
+function main() {
+    # First, try to install it from the repo, since this is the easiest way.
+    sudo apt update
+    if sudo apt install -y python3-caffe-cpu caffe-cpu libcaffe-cpu1 libcaffe-cpu-dev ; then
+        exit 0
+    fi
 
-install_system_deps
-build_caffe
-install_caffe
+    pushd extern
+    install_system_deps
+    build_caffe
+    install_caffe
+    popd
+}
 
-popd
+main
