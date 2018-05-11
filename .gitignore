@@ -2,6 +2,7 @@
 __pycache__
 extern/cifar/data
 extern/caffe/
+extern/avatars
 .vscode
 colorzr/media/
 .idea/
